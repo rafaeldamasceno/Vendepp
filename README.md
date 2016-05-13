@@ -1,0 +1,2 @@
+# Vendepp
+Store managing utility
