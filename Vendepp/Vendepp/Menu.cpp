@@ -40,7 +40,7 @@ MenuResult Menu::handle()
 		}
 
 	}
-	return EXIT;
+	return CONTINUE;
 }
 
 void Menu::invalidOption(int opt)
