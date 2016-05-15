@@ -16,7 +16,8 @@ public:
 	Transaction(Customer & customer, Date date);
 	Customer & getCustomer() const;
 	Date getDate() const;
-
+	void SetCustomer(const Customer & customer);
+	void SetDate(const Date & date);
 
 public:	
 	list <Product *> products;

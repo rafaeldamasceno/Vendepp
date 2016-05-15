@@ -65,6 +65,35 @@ void Store::readTransactions()
 
 	transactionsFile >> size;
 	transactionsFile.ignore(INT64_MAX, '/n');
+	unsigned int transactionID;
+	for (Transaction & i : transactions)
+	{
+		transactionsFile >> transactionID;
+		transactionsFile.ignore(3);
+		if (existsCustomer(transactionID))
+		{
+			for (Customer & e : customers)
+			{
+				if (transactionID == e.getId())
+				{
+					i.SetCustomer(e);
+					continue;
+				}
+			}
+		}
+		else
+		{
+			Customer voidCustomer = { transactionID, "voidcustomer", "01/01/1970", 0.00, false};
+			i.SetCustomer(voidCustomer);
+		}
+		Date date;
+		transactionsFile >> date;
+		i.SetDate(date);
+		transactionsFile.ignore(3);
+
+		
+
+	}
 
 }
 
