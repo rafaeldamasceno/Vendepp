@@ -1,5 +1,4 @@
 #include "Menu.h"
-#include "interface.h"
 
 #include <iostream>
 
@@ -41,6 +40,7 @@ MenuResult Menu::handle()
 		}
 
 	}
+
 	return CONTINUE;
 }
 
@@ -57,11 +57,9 @@ void Menu::invalidOption(string opt)
 
 void Menu::printMenu() const
 {
-	//system("cls");
 	for (size_t i = 1; i < entries.size(); i++)
 	{
-		cout << i << " " << entries[i].first << endl;
+		cout << i << ". " << entries[i].first << endl;
 	}
-	cout << endl << 0 << " " << entries[0].first << endl;
-	
+	cout << endl << 0 << ". " << entries[0].first << endl;
 }
