@@ -27,6 +27,3 @@ private:
 
 
 ostream & operator << (ostream & out, const Transaction & t);
-
-
-

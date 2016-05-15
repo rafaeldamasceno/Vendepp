@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "interface.h"
 
 #include <iostream>
 
@@ -56,8 +57,11 @@ void Menu::invalidOption(string opt)
 
 void Menu::printMenu() const
 {
-	for (size_t i = 0; i < entries.size(); i++)
+	//system("cls");
+	for (size_t i = 1; i < entries.size(); i++)
 	{
 		cout << i << " " << entries[i].first << endl;
 	}
+	cout << endl << 0 << " " << entries[0].first << endl;
+	
 }
