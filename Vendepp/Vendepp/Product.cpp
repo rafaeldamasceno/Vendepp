@@ -3,6 +3,11 @@
 #include <iostream>
 #include <iomanip>
 
+Product::Product()
+{
+
+}
+
 Product::Product(string name, Cost cost) :
 	name(name), cost(cost)
 {

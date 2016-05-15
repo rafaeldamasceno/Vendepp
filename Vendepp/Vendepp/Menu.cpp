@@ -14,6 +14,8 @@ MenuResult Menu::handle()
 	{
 		unsigned int option;
 		printMenu();
+		
+		cout << endl << "Choose an option: ";
 		cin >> option;
 
 		if (!cin.good())
@@ -46,12 +48,12 @@ MenuResult Menu::handle()
 
 void Menu::invalidOption(int opt)
 {
-	cout << "The option \"" << opt << "\" is invalid." << endl;
+	cout << endl << "ERROR: The option \"" << opt << "\" is invalid." << endl;
 }
 
 void Menu::invalidOption(string opt)
 {
-	cout << "The option \"" << opt << "\" is invalid." << endl;
+	cout << endl << "ERROR: The option \"" << opt << "\" is invalid." << endl;
 }
 
 

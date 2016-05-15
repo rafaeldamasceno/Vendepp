@@ -3,6 +3,10 @@
 #include <iostream>
 #include <iomanip>
 
+Customer::Customer()
+{
+
+}
 
 Customer::Customer(unsigned int id, string name, Date joinDate, Cost totalCost, bool active) :
 	id(id), name(name), joinDate(joinDate), totalCost(totalCost), active(active)

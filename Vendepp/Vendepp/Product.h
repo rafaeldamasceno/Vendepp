@@ -9,6 +9,7 @@ using namespace std;
 class Product
 {
 public:
+	Product();
 	Product(string name, Cost cost);
 	string getName() const;
 	Cost getCost() const;

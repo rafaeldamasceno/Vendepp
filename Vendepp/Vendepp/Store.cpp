@@ -1,6 +1,7 @@
 #include "Store.h"
 
 #include <fstream>
+#include <sstream>
 
 Store::Store()
 {
@@ -16,9 +17,9 @@ void Store::load()
 
 void Store::save()
 {
-	writeCustomers();
-	writeProducts();
-	writeTransactions();
+	//writeCustomers();
+	//writeProducts();
+	//writeTransactions();
 }
 
 void Store::readCustomers()
@@ -65,11 +66,16 @@ void Store::readTransactions()
 
 	transactionsFile >> size;
 	transactionsFile.ignore(INT64_MAX, '/n');
-	unsigned int transactionID;
+
+	transactions.resize(size);
+
 	for (Transaction & i : transactions)
 	{
+		unsigned int transactionID;
+
 		transactionsFile >> transactionID;
 		transactionsFile.ignore(3);
+
 		if (existsCustomer(transactionID))
 		{
 			for (Customer & e : customers)
@@ -77,22 +83,34 @@ void Store::readTransactions()
 				if (transactionID == e.getId())
 				{
 					i.SetCustomer(e);
-					continue;
+					break;
 				}
 			}
 		}
 		else
 		{
-			Customer voidCustomer = { transactionID, "voidcustomer", "01/01/1970", 0.00, false};
-			i.SetCustomer(voidCustomer);
+			i.SetCustomer(Customer(transactionID, "", "01/01/1970", 0.0, false));
 		}
+
 		Date date;
+
 		transactionsFile >> date;
+
 		i.SetDate(date);
+
 		transactionsFile.ignore(3);
 
-		
+		string productsLine, product;
+		stringstream ss;
 
+		getline(transactionsFile, productsLine);
+		ss << productsLine;
+		while (ss)
+		{
+			getline(ss, product, ',');
+			purchase.products.push_back(product);
+			ss.ignore(1);
+		}
 	}
 
 }
@@ -104,6 +122,30 @@ bool Store::existsCustomer(const unsigned int & id) const
 		if (i.getId() == id)
 		{
 			return true;
+		}
+	}
+	return false;
+}
+
+bool Store::existsProduct(const string & name) const
+{
+	for (const Product & i : products)
+	{
+		if (i.getName == name)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+Product * Store::fetchProduct(const string & name) const
+{
+	for (const Product & i : products)
+	{
+		if (i.getName == name)
+		{
+			return *i;
 		}
 	}
 	return false;

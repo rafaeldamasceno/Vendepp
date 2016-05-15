@@ -9,6 +9,7 @@ using namespace std;
 class Customer
 {
 public:
+	Customer();
 	Customer(unsigned int id, string name, Date joinDate, Cost totalCost=0, bool active = true);
 
 	string getName() const;

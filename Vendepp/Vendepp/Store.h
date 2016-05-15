@@ -23,6 +23,8 @@ public:
 	void writeTransactions();
 
 	bool existsCustomer(const unsigned int & id) const;
+	bool existsProduct(const string & name) const;
+	Product * fetchProduct(const string & name) const;
 
 private:
 	list <Customer> customers;
