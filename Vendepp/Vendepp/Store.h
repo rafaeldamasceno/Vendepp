@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <map>
 #include <string>
 
 #include "Customer.h"
@@ -24,11 +25,13 @@ public:
 
 	bool existsCustomer(const unsigned int & id) const;
 	bool existsProduct(const string & name) const;
-	Product * fetchProduct(const string & name) const;
+	Product * fetchProduct(const string & name);
 
 private:
 	list <Customer> customers;
 	list <Product> products;
 	list <Transaction> transactions;
+	map <string, Customer *> customersPointer;
+	map <string, Product *> productsPointer;
 	string fileNames[2]; // 0 is customers, 1 is products and 2 is transactions
 };

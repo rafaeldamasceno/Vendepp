@@ -17,6 +17,7 @@ public:
 	bool operator < (const Product & p) const;
 
 	friend istream & operator >> (istream & in, Product & p);
+
 private:
 	string name;
 	Cost cost;

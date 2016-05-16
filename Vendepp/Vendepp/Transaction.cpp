@@ -3,6 +3,12 @@
 Transaction::Transaction(Customer & customer, Date date) :
 	customer(customer), date(date)
 {
+
+}
+
+Transaction::Transaction()
+{
+	
 }
 
 Customer & Transaction::getCustomer() const

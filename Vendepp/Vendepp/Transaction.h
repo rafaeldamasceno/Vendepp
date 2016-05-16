@@ -14,6 +14,7 @@ class Transaction
 {
 public:
 	Transaction(Customer & customer, Date date);
+	Transaction();
 	Customer & getCustomer() const;
 	Date getDate() const;
 	void SetCustomer(const Customer & customer);

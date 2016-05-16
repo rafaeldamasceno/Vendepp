@@ -36,6 +36,7 @@ void Store::readCustomers()
 	for (Customer & i: customers)
 	{
 		customersFile >> i;
+		customersPointer[i.getName()] = &i;
 		customersFile.ignore(INT64_MAX, '/n');
 	}
 }
@@ -54,6 +55,7 @@ void Store::readProducts()
 	for (Product & i : products)
 	{
 		productsFile >> i;
+		productsPointer[i.getName()] = &i;
 		productsFile.ignore(INT64_MAX, '/n');
 	}
 }
@@ -105,12 +107,20 @@ void Store::readTransactions()
 
 		getline(transactionsFile, productsLine);
 		ss << productsLine;
+
 		while (ss)
 		{
 			getline(ss, product, ',');
-			purchase.products.push_back(product);
+
+			if (existsProduct(product))
+			{
+				i.products.push_back(fetchProduct(product));
+			}
+
 			ss.ignore(1);
 		}
+
+		transactionsFile.ignore(INT64_MAX, '/n');
 	}
 
 }
@@ -129,24 +139,17 @@ bool Store::existsCustomer(const unsigned int & id) const
 
 bool Store::existsProduct(const string & name) const
 {
-	for (const Product & i : products)
-	{
-		if (i.getName == name)
-		{
+	try {
+		if (productsPointer.at(name))
 			return true;
-		}
+	}
+	catch (const out_of_range &oor) {
+		return false;	
 	}
 	return false;
 }
 
-Product * Store::fetchProduct(const string & name) const
+Product * Store::fetchProduct(const string & name)
 {
-	for (const Product & i : products)
-	{
-		if (i.getName == name)
-		{
-			return *i;
-		}
-	}
-	return false;
+	return productsPointer.at(name);
 }
