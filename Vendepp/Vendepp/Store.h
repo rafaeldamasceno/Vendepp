@@ -31,7 +31,8 @@ private:
 	list <Customer> customers;
 	list <Product> products;
 	list <Transaction> transactions;
-	map <string, Customer *> customersPointer;
+	map <unsigned int, Customer *> customersIdPointer;
+	map <string, Customer *> customersNamePointer;
 	map <string, Product *> productsPointer;
 	string fileNames[2]; // 0 is customers, 1 is products and 2 is transactions
 };

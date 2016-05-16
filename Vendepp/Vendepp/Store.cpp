@@ -26,18 +26,15 @@ void Store::readCustomers()
 {
 	ifstream customersFile(fileNames[0]);
 
-	unsigned int size;
-
-	customersFile >> size;
 	customersFile.ignore(INT64_MAX, '/n');
 
-	customers.resize(size);
+	Customer customer;
 
-	for (Customer & i: customers)
+	while (customersFile >> customer)
 	{
-		customersFile >> i;
-		customersPointer[i.getName()] = &i;
-		customersFile.ignore(INT64_MAX, '/n');
+		customers.push_back(customer);
+		customersIdPointer[customer.getId()] = &customer;
+		customersNamePointer[customer.getName()] = &customer;
 	}
 }
 
@@ -45,18 +42,14 @@ void Store::readProducts()
 {
 	ifstream productsFile(fileNames[1]);
 
-	unsigned int size;
-
-	productsFile >> size;
 	productsFile.ignore(INT64_MAX, '/n');
 
-	products.resize(size);
+	Product product;
 
-	for (Product & i : products)
+	while (productsFile >> product)
 	{
-		productsFile >> i;
-		productsPointer[i.getName()] = &i;
-		productsFile.ignore(INT64_MAX, '/n');
+		products.push_back(product);
+		productsPointer[product.getName()] = &product;
 	}
 }
 
@@ -64,41 +57,28 @@ void Store::readTransactions()
 {
 	ifstream transactionsFile(fileNames[2]);
 
-	unsigned int size;
-
-	transactionsFile >> size;
 	transactionsFile.ignore(INT64_MAX, '/n');
 
-	transactions.resize(size);
-
-	for (Transaction & i : transactions)
+	while (transactionsFile)
 	{
-		unsigned int transactionID;
+		unsigned int id;
+		Customer customer;
 
-		transactionsFile >> transactionID;
+		transactionsFile >> id;
 		transactionsFile.ignore(3);
 
-		if (existsCustomer(transactionID))
+		if (existsCustomer(id))
 		{
-			for (Customer & e : customers)
-			{
-				if (transactionID == e.getId())
-				{
-					i.SetCustomer(e);
-					break;
-				}
-			}
+			customer = *customersIdPointer.at(id);
 		}
 		else
 		{
-			i.SetCustomer(Customer(transactionID, "", "01/01/1970", 0.0, false));
+			customer = Customer(id, "", "01/01/1970", 0.0, false);
 		}
 
 		Date date;
 
 		transactionsFile >> date;
-
-		i.SetDate(date);
 
 		transactionsFile.ignore(3);
 
@@ -108,31 +88,33 @@ void Store::readTransactions()
 		getline(transactionsFile, productsLine);
 		ss << productsLine;
 
+		list <Product *> products;
+
 		while (ss)
 		{
 			getline(ss, product, ',');
 
 			if (existsProduct(product))
 			{
-				i.products.push_back(fetchProduct(product));
+				products.push_back(fetchProduct(product));
 			}
 
 			ss.ignore(1);
 		}
 
+		transactions.push_back(Transaction(customer, date));
 		transactionsFile.ignore(INT64_MAX, '/n');
 	}
-
 }
 
 bool Store::existsCustomer(const unsigned int & id) const
 {
-	for (const Customer & i : customers)
-	{
-		if (i.getId() == id)
-		{
+	try {
+		if (customersIdPointer.at(id))
 			return true;
-		}
+	}
+	catch (const out_of_range &oor) {
+		return false;
 	}
 	return false;
 }
@@ -144,7 +126,7 @@ bool Store::existsProduct(const string & name) const
 			return true;
 	}
 	catch (const out_of_range &oor) {
-		return false;	
+		return false;
 	}
 	return false;
 }

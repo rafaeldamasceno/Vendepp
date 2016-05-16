@@ -6,11 +6,6 @@ Transaction::Transaction(Customer & customer, Date date) :
 
 }
 
-Transaction::Transaction()
-{
-	
-}
-
 Customer & Transaction::getCustomer() const
 {
 	return customer;
