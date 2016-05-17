@@ -49,7 +49,7 @@ void Store::readProducts()
 	while (productsFile >> product)
 	{
 		products.push_back(product);
-		productsnamePointer[product.getName()] = &product;
+		productsNamePointer[product.getName()] = &product;
 	}
 }
 
@@ -69,7 +69,7 @@ void Store::readTransactions()
 
 		if (existsCustomer(id))
 		{
-			customer = *customersIdPointer.at(id);
+			customer = *fetchCustomer(id);
 		}
 		else
 		{
@@ -122,7 +122,7 @@ bool Store::existsCustomer(const unsigned int & id) const
 bool Store::existsProduct(const string & name) const
 {
 	try {
-		if (productsnamePointer.at(name))
+		if (productsNamePointer.at(name))
 			return true;
 	}
 	catch (const out_of_range &oor) {
@@ -133,15 +133,15 @@ bool Store::existsProduct(const string & name) const
 
 Product * Store::fetchProduct(const string & name)
 {
-	return productsnamePointer.at(name);
+	return productsNamePointer.at(name);
 }
 
-Customer * Store::GetCustomerThroughID(unsigned int ID)
+Customer * Store::fetchCustomer(const unsigned int & id)
 {
-	return customersIdPointer.at(ID);
+	return customersIdPointer.at(id);
 }
 
-Product * Store::fetchProductbyposicion(unsigned int pos)
+Product * Store::fetchProduct(const unsigned int & pos)
 {
-	return productspositionpointer.at(pos);
+	return productsPositionPointer.at(pos);
 }

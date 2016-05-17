@@ -6,8 +6,8 @@
 
 class AddTransaction : public Menu {
 public:
-	AddTransaction();
 	ExitHandler exitHandler;
+	MenuResult handle();
 };
 
 class BuyProducts : public Store

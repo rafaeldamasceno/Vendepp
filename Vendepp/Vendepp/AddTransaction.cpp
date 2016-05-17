@@ -1,8 +1,9 @@
 #include "AddTransaction.h"
 
-AddTransaction::AddTransaction()
+MenuResult AddTransaction::handle()
 {
-	BuyProducts(); //não dá porque AddTransaction é um menuhandler, e por isso deve criar um vetor de menuentrys, que o envia para outro menuhandler
+	BuyProducts();
+	return CONTINUE;
 }
 
 BuyProducts::BuyProducts()
@@ -25,16 +26,16 @@ Customer * BuyProducts::GetCustomer(unsigned int ID)
 		if (!cin.good())
 		{
 			cin.clear();
-			cin.clear();
+			cin.ignore(INT64_MAX, '\n');
 			continue;
 		}
 		if (!(existsCustomer(customerID)))
 		{
 			cin.clear();
-			cin.clear();
+			cin.ignore(INT64_MAX, '\n');
 			continue;
 		}
-		return (GetCustomerThroughID(customerID));
+		return (fetchCustomer(customerID));
 	}
 }
 
