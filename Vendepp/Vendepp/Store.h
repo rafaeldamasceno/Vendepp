@@ -26,6 +26,9 @@ public:
 	bool existsCustomer(const unsigned int & id) const;
 	bool existsProduct(const string & name) const;
 	Product * fetchProduct(const string & name);
+	Customer * GetCustomerThroughID(unsigned int ID);
+	Product * fetchProductbyposicion(unsigned int pos);
+
 
 private:
 	list <Customer> customers;
@@ -33,6 +36,7 @@ private:
 	list <Transaction> transactions;
 	map <unsigned int, Customer *> customersIdPointer;
 	map <string, Customer *> customersNamePointer;
-	map <string, Product *> productsPointer;
+	map <string, Product *> productsnamePointer;
+	map <unsigned int, Product *> productspositionpointer;
 	string fileNames[2]; // 0 is customers, 1 is products and 2 is transactions
 };

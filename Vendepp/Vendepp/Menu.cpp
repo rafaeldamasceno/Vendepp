@@ -59,6 +59,7 @@ void Menu::invalidOption(string opt)
 
 void Menu::printMenu() const
 {
+	system("cls");
 	for (size_t i = 1; i < entries.size(); i++)
 	{
 		cout << i << ". " << entries[i].first << endl;

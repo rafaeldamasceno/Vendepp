@@ -4,6 +4,7 @@
 #include <string>
 
 #include "common.h"
+#include "Store.h"
 
 using namespace std;
 
