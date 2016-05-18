@@ -14,6 +14,10 @@ Date Transaction::getDate() const
 {
 	return date;
 }
+string Transaction::getStringDate() const
+{
+	return date.writeDate();
+}
 
 void Transaction::SetCustomer(const Customer & customer)
 {
@@ -28,7 +32,7 @@ void Transaction::SetDate(const Date & date)
 ostream & operator << (ostream & out, const Transaction & t)
 {
 	out << t.getCustomer().getId() << " ; ";
-	out << t.getDate() << " ; ";
+	out << t.getStringDate() << " ; ";
 	for (const Product * i : t.products)
 	{
 		out << *i;

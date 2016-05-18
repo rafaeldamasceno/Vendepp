@@ -23,17 +23,24 @@ public:
 	void writeProducts();
 	void writeTransactions();
 
+	unsigned int checkId(const unsigned int & idAsked) const; //return 0 if does not exist or is invalid, 1 if exist and is active, 2 if exists and is inactive
+	string writeTransaction();
+	string writeCustomer();
+
 	bool existsCustomer(const unsigned int & id) const;
 	bool existsProduct(const string & name) const;
 	Product * fetchProduct(const string & name);
 	Product * fetchProduct(const unsigned int & pos);
 	Customer * fetchCustomer(const unsigned int & id);
 
+	void askFileNames();
+
 
 private:
 	list <Customer> customers;
 	list <Product> products;
 	list <Transaction> transactions;
+	list <Customer *> bottom10;
 	map <unsigned int, Customer *> customersIdPointer;
 	map <string, Customer *> customersNamePointer;
 	map <unsigned int, Product *> productsPositionPointer;

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 Store::Store()
 {
@@ -24,7 +25,8 @@ void Store::save()
 
 void Store::readCustomers()
 {
-	ifstream customersFile(fileNames[0]);
+	ifstream customersFile;
+	customersFile.open(fileNames[0]);
 
 	customersFile.ignore(INT64_MAX, '/n');
 
@@ -40,7 +42,8 @@ void Store::readCustomers()
 
 void Store::readProducts()
 {
-	ifstream productsFile(fileNames[1]);
+	ifstream productsFile;
+	productsFile.open(fileNames[1]);
 
 	productsFile.ignore(INT64_MAX, '/n');
 
@@ -55,7 +58,8 @@ void Store::readProducts()
 
 void Store::readTransactions()
 {
-	ifstream transactionsFile(fileNames[2]);
+	ifstream transactionsFile;
+	transactionsFile.open(fileNames[2]);
 
 	transactionsFile.ignore(INT64_MAX, '/n');
 
@@ -73,12 +77,14 @@ void Store::readTransactions()
 		}
 		else
 		{
-			customer = Customer(id, "", "01/01/1970", 0.0, false);
+			customer = Customer(id, "", Date(1,1,1970), 0.0, false);
 		}
 
 		Date date;
+		string datestring;
 
-		transactionsFile >> date;
+		transactionsFile >> datestring;
+		date = Date(datestring);
 
 		transactionsFile.ignore(3);
 
@@ -130,6 +136,17 @@ bool Store::existsProduct(const string & name) const
 		return false;
 	}
 	return false;
+}
+
+void Store::askFileNames()
+{
+	cout << "Customers file: ";
+	cin >> fileNames[0];
+	cout << "Products file: ";
+	cin >> fileNames[1];
+	cout << "Transactions file: ";
+	cin >> fileNames[2];
+	//system("cls");
 }
 
 Product * Store::fetchProduct(const string & name)

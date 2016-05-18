@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "Menu.h"
 
 #include "AddTransaction.h"
@@ -9,8 +11,15 @@
 class DateProcessor : public MenuHandler {
 protected:
 	Date readDate(string prompt) {
-		
-		return "xxxx";
+		string sday, smonth, syear;
+		stringstream promptstream;
+		promptstream.str(prompt);
+		getline(promptstream, sday, '/');
+		promptstream.ignore();
+		getline(promptstream, smonth, '/');
+		promptstream.ignore();
+		getline(promptstream, syear);
+		return (Date(stoi(sday),stoi(smonth),stoi(syear)));
 	}
 };
 
@@ -42,6 +51,8 @@ public:
 int main()
 {
 	Store store;
+	store.askFileNames();
+	store.load();
 	Menu menu;
 	AddTransaction addTransaction(store);
 	ManageCustomers manageCustomers(store);

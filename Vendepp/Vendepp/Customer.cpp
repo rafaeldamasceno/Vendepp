@@ -72,7 +72,10 @@ ostream & operator << (ostream & out, const Customer & c)
 {
 	out << c.getId() << " ; ";
 	out << c.getName() << " ; ";
-	out << c.getJoinDate() << " ; ";
+	Date joinDate = c.getJoinDate();
+	string joinDateStr = joinDate.writeDate();
+	out << joinDateStr << " ; ";
+	
 	out << fixed << setprecision(2) << c.getTotalCost();
 	return out;
 }
@@ -83,7 +86,9 @@ istream & operator >> (istream & in, Customer & c)
 	in.ignore(3);
 	getline(in, c.name, ';');
 	c.name.pop_back();
-	in >> c.joinDate;
+	string joinDateStr;
+	in >> joinDateStr;
+	c.joinDate = Date(joinDateStr);
 	in.ignore(3);
 	in >> c.totalCost;
 	return in;
