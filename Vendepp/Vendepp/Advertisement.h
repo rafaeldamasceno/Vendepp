@@ -4,8 +4,9 @@
 
 class Advertisement : public Menu {
 public:
-	Advertisement();
+	Advertisement(Store & store);
 
 	ExitHandler exitHandler;
-
+private:
+	Store & store;
 };

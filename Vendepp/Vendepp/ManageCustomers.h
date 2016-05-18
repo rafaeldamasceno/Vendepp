@@ -4,15 +4,18 @@
 
 class EditCustomer : public Menu {
 public:
-	EditCustomer();
+	EditCustomer(Store & store);
 
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };
 
 class ManageCustomers : public Menu {
 public:
-	ManageCustomers();
+	ManageCustomers(Store & store);
 
-	EditCustomer editCustomer;
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };

@@ -36,9 +36,11 @@ public:
 	virtual MenuResult handle();
 	virtual void invalidOption(int opt);
 	virtual void invalidOption(string opt);
+
 protected:
 	void printMenu() const;
+	static ExitHandler exitHandler;
+
 public:
 	vector <MenuEntry> entries;
-
 };

@@ -43,10 +43,10 @@ int main()
 {
 	Store store;
 	Menu menu;
-	AddTransaction addTransaction;
-	ManageCustomers manageCustomers;
-	ViewInformation viewInformation;
-	Advertisement advertisement;
+	AddTransaction addTransaction(store);
+	ManageCustomers manageCustomers(store);
+	ViewInformation viewInformation(store);
+	Advertisement advertisement(store);
 	ExitHandler exitHandler;
 
 	menu.entries.push_back(MenuEntry("Exit", exitHandler));

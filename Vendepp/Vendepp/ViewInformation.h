@@ -4,31 +4,36 @@
 
 class ViewAllCustomers : public Menu {
 public:
-	ViewAllCustomers();
+	ViewAllCustomers(Store & store);
 
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };
 
 class ViewCustomers : public Menu {
 public:
-	ViewCustomers();
+	ViewCustomers(Store & store);
 
-	ViewAllCustomers viewAllCustomers;
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };
 
 class ViewTransactions : public Menu {
 public:
-	ViewTransactions();
+	ViewTransactions(Store & store);
 
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };
 
 class ViewInformation : public Menu {
 public:
-	ViewInformation();
+	ViewInformation(Store & store);
 
-	ViewCustomers viewCustomers;
-	ViewTransactions viewTransactions;
 	ExitHandler exitHandler;
+private:
+	Store & store;
 };

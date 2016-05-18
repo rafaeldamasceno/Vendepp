@@ -49,7 +49,7 @@ void Store::readProducts()
 	while (productsFile >> product)
 	{
 		products.push_back(product);
-		productsNamePointer[product.getName()] = &product;
+		productsNamePointer[product.getName()] = &(*products.rbegin());
 	}
 }
 
@@ -88,7 +88,9 @@ void Store::readTransactions()
 		getline(transactionsFile, productsLine);
 		ss << productsLine;
 
-		list <Product *> products;
+		transactions.push_back(Transaction(customer, date));
+
+		Transaction & transaction = *transactions.rbegin();
 
 		while (ss)
 		{
@@ -96,13 +98,12 @@ void Store::readTransactions()
 
 			if (existsProduct(product))
 			{
-				products.push_back(fetchProduct(product));
+				transaction.products.push_back(fetchProduct(product));
 			}
 
 			ss.ignore(1);
 		}
 
-		transactions.push_back(Transaction(customer, date));
 		transactionsFile.ignore(INT64_MAX, '/n');
 	}
 }
