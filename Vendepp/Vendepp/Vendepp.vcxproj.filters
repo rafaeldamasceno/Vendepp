@@ -54,6 +54,9 @@
     <ClInclude Include="Advertisement.h">
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Customer.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="ViewInformation.cpp">
       <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Date.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
