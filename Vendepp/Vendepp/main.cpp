@@ -51,8 +51,8 @@ public:
 int main()
 {
 	Store store;
-	store.askFileNames();
-	store.load();
+	//store.askFileNames();
+	//store.load();
 	Menu menu;
 	AddTransaction addTransaction(store);
 	ManageCustomers manageCustomers(store);

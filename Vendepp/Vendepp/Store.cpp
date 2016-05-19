@@ -25,8 +25,7 @@ void Store::save()
 
 void Store::readCustomers()
 {
-	ifstream customersFile;
-	customersFile.open(fileNames[0]);
+	ifstream customersFile(fileNames[0]);
 
 	customersFile.ignore(INT64_MAX, '/n');
 
@@ -42,8 +41,7 @@ void Store::readCustomers()
 
 void Store::readProducts()
 {
-	ifstream productsFile;
-	productsFile.open(fileNames[1]);
+	ifstream productsFile(fileNames[1]);
 
 	productsFile.ignore(INT64_MAX, '/n');
 
@@ -58,8 +56,7 @@ void Store::readProducts()
 
 void Store::readTransactions()
 {
-	ifstream transactionsFile;
-	transactionsFile.open(fileNames[2]);
+	ifstream transactionsFile(fileNames[2]);
 
 	transactionsFile.ignore(INT64_MAX, '/n');
 
