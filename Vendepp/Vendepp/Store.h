@@ -36,7 +36,6 @@ public:
 	void askFileNames();
 	void askFileNames(const string & a, const string & b, const string & c);
 
-
 private:
 	list <Customer> customers;
 	list <Product> products;

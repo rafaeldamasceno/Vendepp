@@ -111,8 +111,6 @@ void Store::readTransactions()
 
 			ss.ignore(1);
 		}
-
-		transactionsFile.ignore(INT64_MAX, '\n');
 	}
 }
 
