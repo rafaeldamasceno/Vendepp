@@ -23,7 +23,6 @@ public:
 	void writeProducts();
 	void writeTransactions();
 
-	unsigned int checkId(const unsigned int & idAsked) const; //return 0 if does not exist or is invalid, 1 if exist and is active, 2 if exists and is inactive
 	string writeTransaction();
 	string writeCustomer();
 
@@ -45,5 +44,5 @@ private:
 	map <string, Customer *> customersNamePointer;
 	map <unsigned int, Product *> productsPositionPointer;
 	map <string, Product *> productsNamePointer;
-	string fileNames[2]; // 0 is customers, 1 is products and 2 is transactions
+	string fileNames[3]; // 0 is customers, 1 is products and 2 is transactions
 };

@@ -33,7 +33,7 @@ Cost Customer::getTotalCost() const
 	return totalCost;
 }
 
-bool Customer::getActiveStatus() const
+bool Customer::active() const
 {
 	return active;
 }
