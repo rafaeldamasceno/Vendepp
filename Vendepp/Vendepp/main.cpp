@@ -43,7 +43,7 @@ public:
 int main()
 {
 	Store store;
-	store.askFileNames();
+	store.askFileNames("customers.txt", "products.txt", "transactions.txt");
 	store.load();
 	Menu menu;
 	AddTransaction addTransaction(store);

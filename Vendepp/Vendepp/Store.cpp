@@ -27,12 +27,14 @@ void Store::readCustomers()
 {
 	ifstream customersFile(fileNames[0]);
 
-	customersFile.ignore(INT64_MAX, '/n');
+	customersFile.ignore(INT64_MAX,'\n');
 
 	Customer customer;
 
-	while (customersFile >> customer)
+	while (customersFile)
 	{
+		customersFile >> customer;
+		customersFile.ignore(INT64_MAX, '\n');
 		customers.push_back(customer);
 		customersIdPointer[customer.getId()] = customersNamePointer[customer.getName()] = &(*customers.rbegin());
 	}
@@ -42,12 +44,14 @@ void Store::readProducts()
 {
 	ifstream productsFile(fileNames[1]);
 
-	productsFile.ignore(INT64_MAX, '/n');
+	productsFile.ignore(INT64_MAX, '\n');
 
 	Product product;
 
-	while (productsFile >> product)
+	while (productsFile)
 	{
+		productsFile >> product;
+		productsFile.ignore(INT64_MAX, '\n');
 		products.push_back(product);
 		productsNamePointer[product.getName()] = &(*products.rbegin());
 	}
@@ -57,7 +61,7 @@ void Store::readTransactions()
 {
 	ifstream transactionsFile(fileNames[2]);
 
-	transactionsFile.ignore(INT64_MAX, '/n');
+	transactionsFile.ignore(INT64_MAX, '\n');
 
 	while (transactionsFile)
 	{
@@ -106,7 +110,7 @@ void Store::readTransactions()
 			ss.ignore(1);
 		}
 
-		transactionsFile.ignore(INT64_MAX, '/n');
+		transactionsFile.ignore(INT64_MAX, '\n');
 	}
 }
 
@@ -143,6 +147,12 @@ void Store::askFileNames()
 	cout << "Transactions file: ";
 	cin >> fileNames[2];
 	//system("cls");
+}
+void Store::askFileNames(const string & a, const string & b, const string & c)
+{
+	fileNames[0] = a;
+	fileNames[1] = b;
+	fileNames[2] = c;
 }
 
 Product * Store::fetchProduct(const string & name)

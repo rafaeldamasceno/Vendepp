@@ -33,6 +33,7 @@ public:
 	Customer * fetchCustomer(const unsigned int & id);
 
 	void askFileNames();
+	void askFileNames(const string & a, const string & b, const string & c);
 
 
 private:
