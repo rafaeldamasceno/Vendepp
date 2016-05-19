@@ -33,7 +33,7 @@ Cost Customer::getTotalCost() const
 	return totalCost;
 }
 
-bool Customer::active() const
+bool Customer::getActiveStatus() const
 {
 	return active;
 }
@@ -72,10 +72,7 @@ ostream & operator << (ostream & out, const Customer & c)
 {
 	out << c.getId() << " ; ";
 	out << c.getName() << " ; ";
-	Date joinDate = c.getJoinDate();
-	string joinDateStr = joinDate.writeDate();
-	out << joinDateStr << " ; ";
-	
+	out << c.getJoinDate() << " ; ";	
 	out << fixed << setprecision(2) << c.getTotalCost();
 	return out;
 }
@@ -86,9 +83,7 @@ istream & operator >> (istream & in, Customer & c)
 	in.ignore(3);
 	getline(in, c.name, ';');
 	c.name.pop_back();
-	string joinDateStr;
-	in >> joinDateStr;
-	c.joinDate = Date(joinDateStr);
+	in >> c.joinDate;
 	in.ignore(3);
 	in >> c.totalCost;
 	return in;

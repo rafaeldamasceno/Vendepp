@@ -15,7 +15,13 @@ Date::Date()
 
 Date::Date(string & input)
 {
-	readDate(input);
+	stringstream date;
+	date.str(input);
+	date >> day;
+	date.ignore();
+	date >> month;
+	date.ignore();
+	date >> year;
 }
 
 unsigned int Date::getDay() const
@@ -46,25 +52,6 @@ void Date::setMonth(const unsigned int &month)
 void Date::setYear(const unsigned int &year)
 {
 	this->year = year;
-}
-
-string Date::writeDate() const
-{
-	stringstream date;
-	date << day << "/" << month << "/" << year;
-	return date.str();
-}
-
-Date Date::readDate(const string & prompt) {
-	string sday, smonth, syear;
-	stringstream promptstream;
-	promptstream.str(prompt);
-	getline(promptstream, sday, '/');
-	promptstream.ignore();
-	getline(promptstream, smonth, '/');
-	promptstream.ignore();
-	getline(promptstream, syear);
-	return (Date(stoi(sday), stoi(smonth), stoi(syear)));
 }
 
 bool isLeapYear(const unsigned int &year)
@@ -170,4 +157,38 @@ bool Date::between(const Date &min, const Date &max)
 	{
 		return false;
 	}
+}
+
+ostream & operator << (ostream & out, const Date & d)
+{
+	if (d.getDay() < 10)
+	{
+		out << '0';
+	}
+	out << d.getDay();
+
+	out << '/';
+
+	if (d.getMonth() < 10)
+	{
+		out << '0';
+	}
+	out << d.getMonth();
+
+	out << '/';
+
+	out << d.getYear();
+
+	return out;
+}
+
+istream & operator >> (istream & in, Date & d)
+{
+	in >> d.day;
+	in.ignore();
+	in >> d.month;
+	in.ignore();
+	in >> d.year;
+
+	return in;
 }

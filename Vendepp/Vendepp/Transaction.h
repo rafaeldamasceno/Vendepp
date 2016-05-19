@@ -16,7 +16,6 @@ public:
 	Transaction(Customer & customer, Date date);
 	Customer & getCustomer() const;
 	Date getDate() const;
-	string getStringDate() const;
 	void SetCustomer(const Customer & customer);
 	void SetDate(const Date & date);
 

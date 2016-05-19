@@ -17,7 +17,7 @@ public:
 	unsigned int getId() const;
 	Date getJoinDate() const;
 	Cost getTotalCost() const;
-	bool active() const;
+	bool getActiveStatus() const;
 
 	void setName(const string & name);
 	void setId(const unsigned int & id);

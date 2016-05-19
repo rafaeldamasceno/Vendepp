@@ -34,8 +34,7 @@ void Store::readCustomers()
 	while (customersFile >> customer)
 	{
 		customers.push_back(customer);
-		customersIdPointer[customer.getId()] = &customer;
-		customersNamePointer[customer.getName()] = &customer;
+		customersIdPointer[customer.getId()] = customersNamePointer[customer.getName()] = &(*customers.rbegin());
 	}
 }
 
