@@ -8,38 +8,6 @@
 #include "Advertisement.h"
 #include "Store.h"
 
-class DateProcessor : public MenuHandler {
-protected:
-	Date readDate(string prompt) {
-	
-	}
-};
-
-class OneDateProcessor : public DateProcessor {
-public:
-
-	virtual MenuResult handle() {
-		Date date = readDate("xxxx");
-
-		return handle(date);
-	}
-
-	virtual MenuResult handle(Date date) = 0;
-};
-
-class TwoDateProcessor : public DateProcessor {
-public:
-
-	virtual MenuResult handle() {
-		Date date1 = readDate("xxxx");
-		Date date2 = readDate("xxxx");
-
-		return handle(date1, date2);
-	}
-
-	virtual MenuResult handle(Date date1, Date date2) = 0;
-};
-
 int main()
 {
 	Store store;
@@ -50,9 +18,8 @@ int main()
 	ManageCustomers manageCustomers(store);
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
-	ExitHandler exitHandler;
 
-	menu.entries.push_back(MenuEntry("Exit", exitHandler));
+	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));

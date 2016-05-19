@@ -6,7 +6,6 @@ class EditCustomer : public Menu {
 public:
 	EditCustomer(Store & store);
 
-	ExitHandler exitHandler;
 private:
 	Store & store;
 };
@@ -15,7 +14,6 @@ class ManageCustomers : public Menu {
 public:
 	ManageCustomers(Store & store);
 
-	ExitHandler exitHandler;
 private:
 	Store & store;
 };

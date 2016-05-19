@@ -16,15 +16,16 @@ public:
 	Store();
 	void load();
 	void save();
+
 	void readCustomers();
 	void readProducts();
 	void readTransactions();
+
 	void writeCustomers();
 	void writeProducts();
 	void writeTransactions();
 
-	string writeTransaction();
-	string writeCustomer();
+	void addCustomer(const Customer & c);
 
 	bool existsCustomer(const unsigned int & id) const;
 	bool existsProduct(const string & name) const;

@@ -39,8 +39,33 @@ public:
 
 protected:
 	void printMenu() const;
-	static ExitHandler exitHandler;
 
 public:
+	static ExitHandler exitHandler;
 	vector <MenuEntry> entries;
 };
+
+class OneDateProcessor : public MenuHandler {
+public:
+	OneDateProcessor(const string & prompt, const string & error);
+	Date readDate(const string & prompt, const string & error);
+	virtual MenuResult handle();
+
+protected:
+	virtual MenuResult handle(Date date) = 0;
+
+	string error;
+	string prompt1;
+};
+
+class TwoDateProcessor : public OneDateProcessor {
+public:
+	TwoDateProcessor(const string & prompt1, const string & prompt2, const string & error);
+
+protected:
+	virtual MenuResult handle(Date date1, Date date2) = 0;
+	virtual MenuResult handle(Date date1);
+
+	string prompt2;
+};
+
