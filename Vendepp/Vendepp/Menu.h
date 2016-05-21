@@ -69,3 +69,5 @@ protected:
 	string prompt2;
 };
 
+Customer * readCustomerId(Store & store);
+Product * readProductName(Store & store);

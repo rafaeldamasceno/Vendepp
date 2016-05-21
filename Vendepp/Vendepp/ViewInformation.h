@@ -2,14 +2,9 @@
 
 #include "Menu.h"
 
-enum CustomerSortBy
+enum SortBy
 {
-	NAME, ID, DATE
-};
-
-enum TransactionSortBy
-{
-	ID, DATE
+	ID, DATE, NAME
 };
 
 class ViewAllCustomers : public Menu {
@@ -57,25 +52,25 @@ private:
 class PrintCustomers : public Menu
 {
 public:
-	PrintCustomers(Store & store, CustomerSortBy sortBy);
+	PrintCustomers(Store & store, SortBy sortBy);
 
 	virtual MenuResult handle();
 
 private:
 	Store & store;
-	CustomerSortBy sortBy;
+	SortBy sortBy;
 
 };
 
 class PrintTransactions : public Menu
 {
 public:
-	PrintTransactions(Store & store, CustomerSortBy sortBy);
+	PrintTransactions(Store & store, SortBy sortBy);
 
 	virtual MenuResult handle();
 
 private:
 	Store & store;
-	CustomerSortBy sortBy;
+	SortBy sortBy;
 
 };

@@ -23,6 +23,29 @@ void Store::save()
 	//writeTransactions();
 }
 
+void Store::writeTransactions()
+{
+	ofstream transactionsFile(fileNames[2]);
+	transactionsFile << transactions.size() << endl;
+	for (const Transaction & i : transactions)
+	{
+		transactionsFile << i << endl;
+	}
+}
+
+void Store::writeCustomers()
+{
+	ofstream customersFile(fileNames[0]);
+	customersFile << customers.size() - inactiveCustomers << endl;
+	for (const Customer & i : customers)
+	{
+		if (i.getActiveStatus())
+		{
+			customersFile << i << endl;
+		}
+	}
+}
+
 void Store::readCustomers()
 {
 	ifstream customersFile(fileNames[0]);
@@ -85,7 +108,7 @@ void Store::readTransactions()
 		}
 		else
 		{
-			addCustomer(Customer(id, "", Date(1, 1, 1970), 0.0, false));
+			addCustomer(Customer(id, "", Date(1, 1, 0), 0.0, false));
 			customer = &(*customers.rbegin());
 		}
 
@@ -118,6 +141,10 @@ void Store::addCustomer(const Customer & c)
 {
 	customers.push_back(c);
 	customersIdPointer[c.getId()] = customersNamePointer[c.getName()] = &(*customers.rbegin());
+	if (!c.getActiveStatus())
+	{
+		inactiveCustomers++;
+	}
 }
 
 bool Store::existsCustomer(const unsigned int & id) const
@@ -157,24 +184,29 @@ Customer * Store::fetchCustomer(const unsigned int & id)
 	return customersIdPointer.at(id);
 }
 
-map<unsigned int, Product*> Store::getProductsIdMap()
+const map <unsigned int, Product*> & Store::getProductsIdMap()
 {
 	return productsPositionPointer;
 }
 
-map<unsigned int, Customer*> Store::getCustomersIdMap()
+const map <unsigned int, Customer*> & Store::getCustomersIdMap()
 {
 	return customersIdPointer;
 }
 
-map<string, Customer*> Store::getCustomersNameMap()
+const map <string, Customer*> & Store::getCustomersNameMap()
 {
 	return customersNamePointer;
 }
 
-const list<Customer> & Store::getAllCustomers()
+const list <Customer> & Store::getAllCustomers()
 {
 	return customers;
+}
+
+const list <Transaction>& Store::getAllTransactions()
+{
+	return transactions;
 }
 
 Product * Store::fetchProduct(const unsigned int & pos)

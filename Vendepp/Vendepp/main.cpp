@@ -19,7 +19,7 @@ int main()
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
 	PrintProducts viewProducts(store);
-	PrintCustomers printCustomers(store, DATE);
+	PrintTransactions printTransactions(store, DATE);
 	
 	/*menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
@@ -28,7 +28,8 @@ int main()
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
 
 	menu.handle();*/
-	printCustomers.handle();
+	printTransactions.handle();
+
 
 	return 0;
 }

@@ -111,3 +111,65 @@ MenuResult TwoDateProcessor::handle(Date date1) {
 
 	return handle(date1, date2);
 }
+
+Customer * readCustomerId(Store & store)
+{
+	bool inputError = false, customerExists = true;
+	while (true)
+	{
+		if (inputError)
+		{
+			cout << "ERROR: That was not a valid input." << endl;
+			inputError = false;
+		}
+		if (!customerExists)
+		{
+			cout << "ERROR: That customer doesn't exist." << endl;
+			customerExists = true;
+		}
+		unsigned int id;
+		cin >> id;
+		if (!cin.good())
+		{
+			cin.clear();
+			cin.ignore(INT64_MAX, '\n');
+			inputError = true;
+			continue;
+		}
+		if (store.existsCustomer(id))
+		{
+			if ((*store.fetchCustomer(id)).getActiveStatus())
+			{
+				return store.fetchCustomer(id);
+			}
+		}
+		customerExists = false;
+	}
+}
+
+Product * readProductName(Store & store)
+{
+	bool existsProduct = true;
+	while (true)
+	{
+		if (!existsProduct)
+		{
+			cout << "ERROR: That product doesn't exist.";
+			existsProduct = true;
+		}
+		string productName;
+		getline(cin, productName);
+		if (productName == "")
+		{
+			return nullptr;
+		}
+		if (store.existsProduct(productName))
+		{
+			return store.fetchProduct(productName);
+		}
+		else
+		{
+			existsProduct = false;
+		}
+	}
+}

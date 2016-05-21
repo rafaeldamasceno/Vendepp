@@ -65,7 +65,7 @@ MenuResult PrintProducts::handle()
 	return CONTINUE;
 }
 
-PrintCustomers::PrintCustomers(Store & store, CustomerSortBy sortBy) :
+PrintCustomers::PrintCustomers(Store & store, SortBy sortBy) :
 	store(store), sortBy(sortBy)
 {
 	
@@ -124,6 +124,42 @@ MenuResult PrintCustomers::handle()
 				cout << "Total cost: ";
 				cout << fixed << setprecision(2) << i.getTotalCost() << endl << endl;
 			}
+		}
+	}
+
+	pause();
+	return CONTINUE;
+}
+
+PrintTransactions::PrintTransactions(Store & store, SortBy sortBy) :
+	store(store), sortBy(sortBy)
+{
+
+}
+
+MenuResult PrintTransactions::handle()
+{
+	if (sortBy == DATE)
+	{
+		list <Transaction> transactions = store.getAllTransactions();
+		transactions.sort([](const Transaction & a, const Transaction & b) { return a.getDate() < b.getDate(); });
+		for (const Transaction & i : transactions)
+		{
+			cout << "Customer ID: ";
+			cout << i.getCustomer().getId() << endl;
+			cout << "Transaction date: ";
+			cout << i.getDate() << endl;
+			cout << "Products: ";
+			for (const Product * j : i.products)
+			{
+				cout << (*j).getName();
+
+				if (j != *(i.products.rbegin()))
+				{
+					cout << ", ";
+				}
+			}
+			cout << endl << endl;
 		}
 	}
 
