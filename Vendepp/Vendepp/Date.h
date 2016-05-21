@@ -19,12 +19,16 @@ public:
 	void setMonth(const unsigned int &month);
 	void setYear(const unsigned int &year);
 
-	bool valid(); // checks if a date is valid, returns false if not
-	bool beforeOrSame(const Date &date); // checks if a date is before or the same as another date, returns false if not
-	bool afterOrSame(const Date &date); // checks if a date is after or the same as another date, returns false if not
+	bool valid() const; // checks if a date is valid, returns false if not
+	bool operator <= (const Date &date) const; // checks if a date is before or the same as another date, returns false if not
+	bool operator >= (const Date &date) const; // checks if a date is after or the same as another date, returns false if not
+	bool operator < (const Date &date) const;
+	bool operator > (const Date &date) const;
+
 	bool between(const Date &min, const Date &max); // checks if a date is between a certain interval (extremes included), returns false if not
 
 	friend istream & operator >> (istream & in, Date & d);
+	
 private:
 	unsigned int day;
 	unsigned int month;

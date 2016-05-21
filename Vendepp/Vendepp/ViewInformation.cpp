@@ -53,7 +53,7 @@ PrintProducts::PrintProducts(Store & store) :
 
 MenuResult PrintProducts::handle()
 {
-	for (auto const & i : store.getAllProducts())
+	for (auto const & i : store.getProductsIdMap())
 	{
 		cout << "Name: ";
 		cout << (*(i.second)).getName() << endl;
@@ -65,7 +65,7 @@ MenuResult PrintProducts::handle()
 	return CONTINUE;
 }
 
-PrintCustomers::PrintCustomers(Store & store, SortBy sortBy) :
+PrintCustomers::PrintCustomers(Store & store, CustomerSortBy sortBy) :
 	store(store), sortBy(sortBy)
 {
 	
@@ -75,7 +75,7 @@ MenuResult PrintCustomers::handle()
 {
 	if (sortBy == ID)
 	{
-		for (auto const & i : store.getAllCustomersById())
+		for (auto const & i : store.getCustomersIdMap())
 		{
 			if((*(i.second)).getActiveStatus())
 			{
@@ -92,7 +92,7 @@ MenuResult PrintCustomers::handle()
 	}
 	else if (sortBy == NAME)
 	{
-		for (auto const & i : store.getAllCustomersByName())
+		for (auto const & i : store.getCustomersNameMap())
 		{
 			if ((*(i.second)).getActiveStatus())
 			{
@@ -104,6 +104,25 @@ MenuResult PrintCustomers::handle()
 				cout << (*(i.second)).getJoinDate() << endl;
 				cout << "Total cost: ";
 				cout << fixed << setprecision(2) << (*(i.second)).getTotalCost() << endl << endl;
+			}
+		}
+	}
+	else if (sortBy == DATE)
+	{
+		list <Customer> customers = store.getAllCustomers();
+		customers.sort([](const Customer & a, const Customer & b) { return a.getJoinDate() < b.getJoinDate(); });
+		for (auto const & i : customers)
+		{
+			if (i.getActiveStatus())
+			{
+				cout << "ID: ";
+				cout << i.getId() << endl;
+				cout << "Name: ";
+				cout << i.getName() << endl;
+				cout << "Join date: ";
+				cout << i.getJoinDate() << endl;
+				cout << "Total cost: ";
+				cout << fixed << setprecision(2) << i.getTotalCost() << endl << endl;
 			}
 		}
 	}

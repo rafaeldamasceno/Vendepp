@@ -33,9 +33,10 @@ public:
 	Product * fetchProduct(const unsigned int & pos);
 	Customer * fetchCustomer(const unsigned int & id);
 
-	map <unsigned int, Product *> getAllProducts();
-	map <unsigned int, Customer *> getAllCustomersById();
-	map <string, Customer *> getAllCustomersByName();
+	map <unsigned int, Product *> getProductsIdMap();
+	map <unsigned int, Customer *> getCustomersIdMap();
+	map <string, Customer *> getCustomersNameMap();
+	const list <Customer> & getAllCustomers();
 
 	void askFileNames();
 	void askFileNames(const string & a, const string & b, const string & c);

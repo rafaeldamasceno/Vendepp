@@ -19,7 +19,7 @@ int main()
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
 	PrintProducts viewProducts(store);
-	PrintCustomers printCustomers(store, NAME);
+	PrintCustomers printCustomers(store, DATE);
 	
 	/*menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));

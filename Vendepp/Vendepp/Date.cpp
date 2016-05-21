@@ -89,7 +89,7 @@ unsigned int daysInMonth(const unsigned int &month, const unsigned int &year)
 	}
 }
 
-bool Date::valid()
+bool Date::valid() const
 {
 	if (month >= 1 && month <= 12)
 	{
@@ -101,7 +101,7 @@ bool Date::valid()
 	return false;
 }
 
-bool Date::beforeOrSame(const Date &date)
+bool Date::operator <= (const Date &date) const
 {
 	if (year < date.getYear())
 	{
@@ -124,7 +124,7 @@ bool Date::beforeOrSame(const Date &date)
 	return false;
 }
 
-bool Date::afterOrSame(const Date &date)
+bool Date::operator >= (const Date &date) const
 {
 	if (year > date.getYear())
 	{
@@ -147,9 +147,55 @@ bool Date::afterOrSame(const Date &date)
 	return false;
 }
 
+bool Date::operator < (const Date &date) const
+{
+	if (year < date.getYear())
+	{
+		return true;
+	}
+	else if (year == date.getYear())
+	{
+		if (month < date.getMonth())
+		{
+			return true;
+		}
+		else if (month == date.getMonth())
+		{
+			if (day < date.getDay())
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool Date::operator > (const Date &date) const
+{
+	if (year > date.getYear())
+	{
+		return true;
+	}
+	else if (year == date.getYear())
+	{
+		if (month > date.getMonth())
+		{
+			return true;
+		}
+		else if (month == date.getMonth())
+		{
+			if (day > date.getDay())
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool Date::between(const Date &min, const Date &max)
 {
-	if (afterOrSame(min) && beforeOrSame(max))
+	if (*this >= min && *this <= max)
 	{
 		return true;
 	}
