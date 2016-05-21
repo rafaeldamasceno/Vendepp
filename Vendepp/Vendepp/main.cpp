@@ -18,14 +18,18 @@ int main()
 	ManageCustomers manageCustomers(store);
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
-
-	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
+	PrintProducts viewProducts(store);
+	PrintCustomers printCustomers(store, NAME);
+	
+	/*menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
 
-	menu.handle();
+	menu.handle();*/
+	printCustomers.handle();
 
 	return 0;
 }
+

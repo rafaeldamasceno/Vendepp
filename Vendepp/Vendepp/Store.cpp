@@ -157,6 +157,26 @@ Customer * Store::fetchCustomer(const unsigned int & id)
 	return customersIdPointer.at(id);
 }
 
+map<unsigned int, Product*> Store::getAllProducts()
+{
+	return productsPositionPointer;
+}
+
+map<unsigned int, Customer*> Store::getAllCustomersById()
+{
+	return customersIdPointer;
+}
+
+map<string, Customer*> Store::getAllCustomersByName()
+{
+	return customersNamePointer;
+}
+
+map<Date, Customer*> Store::getAllCustomersByDate()
+{
+	return customerDatePointer;
+}
+
 Product * Store::fetchProduct(const unsigned int & pos)
 {
 	return productsPositionPointer.at(pos);
