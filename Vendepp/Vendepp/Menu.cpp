@@ -139,7 +139,7 @@ Customer * readCustomerId(Store & store)
 		}
 		if (store.existsCustomer(id))
 		{
-			if ((*store.fetchCustomer(id)).getActiveStatus())
+			if (store.fetchCustomer(id)->getActiveStatus())
 			{
 				return store.fetchCustomer(id);
 			}

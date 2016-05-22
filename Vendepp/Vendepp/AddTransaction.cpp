@@ -1,6 +1,7 @@
 #include "AddTransaction.h"
 
 #include <algorithm>
+#include <iomanip>
 
 AddTransaction::AddTransaction(Store & store) : 
 store(store)
@@ -21,6 +22,8 @@ MenuResult AddTransaction::handle()
 
 	Transaction transaction(*customer, date);
 	// ler produtos
+	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
+	cout << "To stop inserting products, press enter.\n";
 	while (true)
 	{
 		Product * product = readProductName(store);
@@ -29,8 +32,7 @@ MenuResult AddTransaction::handle()
 		{
 			break;
 		}
-		auto result = find(transaction.products.begin(), transaction.products.end(), product);
-		if (result != transaction.products.end())
+		if (find(transaction.products.begin(), transaction.products.end(), product) != transaction.products.end())
 		{
 			cout << "ERROR: Product already added." << endl;
 			continue;
@@ -40,6 +42,6 @@ MenuResult AddTransaction::handle()
 	}
 
 	store.addTransaction(transaction);
-
+	cout << "The transaction has been added.\n";
 	return CONTINUE;
 }

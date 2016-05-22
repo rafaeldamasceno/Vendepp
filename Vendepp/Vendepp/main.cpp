@@ -26,13 +26,14 @@ int main()
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
 	CustomerAdvertisement customerAdvertisement(store);
+	AddCustomer addCustomer(store);
 
 	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
-	menu.entries.push_back(MenuEntry("Advertisement", customerAdvertisement));
+	menu.entries.push_back(MenuEntry("Advertisement", addCustomer));
 
 	menu.handle();
 

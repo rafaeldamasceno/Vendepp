@@ -63,7 +63,7 @@ MenuResult CustomerAdvertisement::handle()
 
 	vector <unsigned int> similarClients;
 
-	unsigned int targetProducts = productsBought[idToLine[(*customer).getId()]].size();
+	unsigned int targetProducts = productsBought[idToLine[customer->getId()]].size();
 
 	while (!similarClients.size() && targetProducts)
 	{
@@ -73,18 +73,18 @@ MenuResult CustomerAdvertisement::handle()
 
 			for (const unsigned int &product : productsBought[i])
 			{
-				if (find(productsBought[idToLine[(*customer).getId()]].begin(), productsBought[idToLine[(*customer).getId()]].end(), product) == productsBought[idToLine[(*customer).getId()]].end())
+				if (find(productsBought[idToLine[customer->getId()]].begin(), productsBought[idToLine[customer->getId()]].end(), product) == productsBought[idToLine[customer->getId()]].end())
 				{
 					hasDifferentProduct = true;
 					break;
 				}
 			}
-			if (i != idToLine[(*customer).getId()] && hasDifferentProduct)
+			if (i != idToLine[customer->getId()] && hasDifferentProduct)
 			{
 				unsigned int equalProducts = 0;
 				for (size_t j = 0; j < pointerToPosition.size(); j++)
 				{
-					if (hasBoughtProduct[i][j] && hasBoughtProduct[idToLine[(*customer).getId()]][j])
+					if (hasBoughtProduct[i][j] && hasBoughtProduct[idToLine[customer->getId()]][j])
 					{
 						equalProducts++;
 					}
@@ -105,14 +105,14 @@ MenuResult CustomerAdvertisement::handle()
 		{
 			for (const int &j : productsBought[i])
 			{
-				if (find(productsBought[idToLine[(*customer).getId()]].begin(), productsBought[idToLine[(*customer).getId()]].end(), j) == productsBought[idToLine[(*customer).getId()]].end())
+				if (find(productsBought[idToLine[customer->getId()]].begin(), productsBought[idToLine[customer->getId()]].end(), j) == productsBought[idToLine[customer->getId()]].end())
 				{
 					productOccurrences[j]++;
 				}
 			}
 		}
 
-		cout << "The best recommendation for this customer is \"" << (*store.getProductsIdMap().at(maxElementIndex(productOccurrences))).getName() << "\"." << endl;
+		cout << "The best recommendation for this customer is \"" << store.getProductsIdMap().at(maxElementIndex(productOccurrences))->getName() << "\"." << endl;
 	}
 	else
 	{

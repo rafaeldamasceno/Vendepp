@@ -56,9 +56,9 @@ MenuResult PrintProducts::handle()
 	for (auto const & i : store.getProductsIdMap())
 	{
 		cout << "Name: ";
-		cout << (*(i.second)).getName() << endl;
+		cout << i.second->getName() << endl;
 		cout << "Cost: ";
-		cout << fixed << setprecision(2) << (*(i.second)).getCost() << endl << endl;
+		cout << fixed << setprecision(2) << i.second->getCost() << endl << endl;
 	}
 
 	pause();
@@ -88,28 +88,28 @@ MenuResult PrintCustomers::handle()
 	if (showBy == CUSTOMER)
 	{
 			cout << "ID: ";
-			cout << (*customer).getId() << endl;
+			cout << customer->getId() << endl;
 			cout << "Name: ";
-			cout << (*customer).getName() << endl;
+			cout << customer->getName() << endl;
 			cout << "Join date: ";
-			cout << (*customer).getJoinDate() << endl;
+			cout << customer->getJoinDate() << endl;
 			cout << "Total cost: ";
-			cout << fixed << setprecision(2) << (*customer).getTotalCost() << endl << endl;
+			cout << fixed << setprecision(2) << customer->getTotalCost() << endl << endl;
 	}
 	else if (sortBy == ID)
 	{
 		for (auto const & i : store.getCustomersIdMap())
 		{
-			if((*(i.second)).getActiveStatus())
+			if(i.second->getActiveStatus())
 			{
 				cout << "ID: ";
-				cout << (*(i.second)).getId() << endl;
+				cout << i.second->getId() << endl;
 				cout << "Name: ";
-				cout << (*(i.second)).getName() << endl;
+				cout << i.second->getName() << endl;
 				cout << "Join date: ";
-				cout << (*(i.second)).getJoinDate() << endl;
+				cout << i.second->getJoinDate() << endl;
 				cout << "Total cost: ";
-				cout << fixed << setprecision(2) << (*(i.second)).getTotalCost() << endl << endl;
+				cout << fixed << setprecision(2) << i.second->getTotalCost() << endl << endl;
 			}
 		}
 	}
@@ -117,16 +117,16 @@ MenuResult PrintCustomers::handle()
 	{
 		for (auto const & i : store.getCustomersNameMap())
 		{
-			if ((*(i.second)).getActiveStatus())
+			if (i.second->getActiveStatus())
 			{
 				cout << "ID: ";
-				cout << (*(i.second)).getId() << endl;
+				cout << i.second->getId() << endl;
 				cout << "Name: ";
-				cout << (*(i.second)).getName() << endl;
+				cout << i.second->getName() << endl;
 				cout << "Join date: ";
-				cout << (*(i.second)).getJoinDate() << endl;
+				cout << i.second->getJoinDate() << endl;
 				cout << "Total cost: ";
-				cout << fixed << setprecision(2) << (*(i.second)).getTotalCost() << endl << endl;
+				cout << fixed << setprecision(2) << i.second->getTotalCost() << endl << endl;
 			}
 		}
 	}
@@ -258,7 +258,7 @@ MenuResult PrintTransactions::handle()
 		cout << "Products: ";
 		for (const Product * j : i.products)
 		{
-			cout << (*j).getName();
+			cout << j->getName();
 
 			if (j != *(i.products.rbegin()))
 			{

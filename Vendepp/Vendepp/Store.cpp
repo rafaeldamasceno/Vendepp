@@ -158,7 +158,7 @@ void Store::addTransaction(const Transaction & t)
 	Cost cost = 0;
 	for (const Product* i : t.products)
 	{
-		cost += (*i).getCost();
+		cost += i->getCost();
 	}
 	t.getCustomer().setTotalCost(t.getCustomer().getTotalCost() + cost);
 	writeTransactions();
@@ -191,7 +191,7 @@ void Store::askFileNames(const string & a, const string & b, const string & c)
 unsigned int Store::getAvailableId() const
 {
 	auto max = max_element(customers.begin(), customers.end(), [](const Customer & a, const Customer & b) { return a.getId() < b.getId(); });
-	return (*max).getId() + 1;
+	return max->getId() + 1;
 }
 
 Product * Store::fetchProduct(const string & name)
@@ -232,6 +232,13 @@ const list <Customer> & Store::getAllCustomers()
 const list <Transaction>& Store::getAllTransactions()
 {
 	return transactions;
+}
+
+void Store::deleteCustomer(Customer * customer)
+{
+	customer->setActiveStatus(false);
+	inactiveCustomers++;
+	writeCustomers();
 }
 
 Product * Store::fetchProduct(const unsigned int & pos)

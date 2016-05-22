@@ -41,6 +41,8 @@ public:
 	const list <Customer> & getAllCustomers();
 	const list <Transaction> & getAllTransactions();
 
+	void deleteCustomer(Customer * customer);
+
 	void askFileNames();
 	void askFileNames(const string & a, const string & b, const string & c);
 

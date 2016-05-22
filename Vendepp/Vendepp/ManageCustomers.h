@@ -17,3 +17,36 @@ public:
 private:
 	Store & store;
 };
+
+class AddCustomer : public Menu {
+
+public:
+	AddCustomer(Store & store);
+
+	virtual MenuResult handle();
+private:
+	Store & store;
+
+};
+
+class RemoveCustomer : public Menu {
+
+public:
+	RemoveCustomer(Store & store);
+
+	virtual MenuResult handle();
+private:
+	Store & store;
+
+};
+
+class EditCustomerName : public Menu {
+
+public:
+	EditCustomerName(Store & store);
+
+	virtual MenuResult handle();
+private:
+	Store & store;
+
+};

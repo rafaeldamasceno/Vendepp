@@ -32,7 +32,7 @@ ostream & operator << (ostream & out, const Transaction & t)
 	out << t.getDate() << " ; ";
 	for (const Product * i : t.products)
 	{
-		out << (*i).getName();
+		out << i->getName();
 		if (i != *(t.products.rbegin()))
 		{
 			out << ", ";
