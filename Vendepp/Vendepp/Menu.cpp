@@ -128,6 +128,7 @@ Customer * readCustomerId(Store & store)
 			customerExists = true;
 		}
 		unsigned int id;
+		cout << "Insert the customer ID: ";
 		cin >> id;
 		if (!cin.good())
 		{
@@ -154,10 +155,11 @@ Product * readProductName(Store & store)
 	{
 		if (!existsProduct)
 		{
-			cout << "ERROR: That product doesn't exist.";
+			cout << "ERROR: That product doesn't exist." << endl;
 			existsProduct = true;
 		}
 		string productName;
+		cout << "Insert product name: ";
 		getline(cin, productName);
 		if (productName == "")
 		{

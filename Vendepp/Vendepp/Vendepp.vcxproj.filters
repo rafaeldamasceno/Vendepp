@@ -96,4 +96,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="products.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="transactions.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="customers.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

@@ -20,6 +20,7 @@ int main()
 	ManageCustomers manageCustomers(store);
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
+	PrintCustomers a(store, COST);
 
 	
 	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
@@ -27,6 +28,7 @@ int main()
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
+	menu.entries.push_back(MenuEntry("Advertisement", a));
 
 	menu.handle();
 

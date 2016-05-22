@@ -169,6 +169,11 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="ViewInformation.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="customers.txt" />
+    <Text Include="products.txt" />
+    <Text Include="transactions.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

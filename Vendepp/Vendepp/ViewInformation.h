@@ -9,7 +9,7 @@ enum SortBy
 
 enum ShowBy
 {
-	ALL, CUSTOMER, DAY, PERIOD
+	ALL, CUSTOMER, DAY, PERIOD, BOTTOM10
 };
 
 class ViewAllCustomers : public Menu {
@@ -59,6 +59,7 @@ class PrintCustomers : public Menu
 public:
 	PrintCustomers(Store & store, SortBy sortBy);
 	PrintCustomers(Store & store, Customer * customer);
+	PrintCustomers(Store & store, ShowBy showBy);
 
 
 	virtual MenuResult handle();
@@ -66,6 +67,7 @@ public:
 private:
 	Store & store;
 	SortBy sortBy;
+	ShowBy showBy;
 	Customer * customer = nullptr;
 
 };

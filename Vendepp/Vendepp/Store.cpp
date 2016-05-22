@@ -148,6 +148,18 @@ void Store::addCustomer(const Customer & c)
 	writeCustomers();
 }
 
+void Store::addTransaction(const Transaction & t)
+{
+	transactions.push_back(t);
+	Cost cost = 0;
+	for (const Product* i : t.products)
+	{
+		cost += (*i).getCost();
+	}
+	t.getCustomer().setTotalCost(t.getCustomer().getTotalCost() + cost);
+	writeTransactions();
+}
+
 bool Store::existsCustomer(const unsigned int & id) const
 {
 	return customersIdPointer.find(id) != customersIdPointer.end();
