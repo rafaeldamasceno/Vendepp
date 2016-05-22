@@ -27,7 +27,7 @@ MenuResult AddCustomer::handle()
 	string name;
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');
-	cout << "Insert customer name: ";
+	cout << "\nInsert customer name: ";
 	getline(cin, name);
 	Customer customer(id, name, todayDate, 0.00);
 	store.addCustomer(customer);
@@ -45,10 +45,11 @@ EditCustomerName::EditCustomerName(Store & store) :
 
 MenuResult EditCustomerName::handle()
 {
+	cout << endl;
 	Customer * customer = readCustomerId(store);
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');
-	cout << "Insert the new name: ";
+	cout << "\nInsert the new name: ";
 	string name;
 	getline(cin, name);
 	customer->setName(name);
@@ -72,12 +73,13 @@ RemoveCustomer::RemoveCustomer(Store & store) :
 
 MenuResult RemoveCustomer::handle()
 {
+	cout << endl;
 	Customer* customer = readCustomerId(store);
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');
 	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
 	char c;
-	cout << "\n\nAre you sure you want to remove this customer?\nInsert Y for YES or anything else to cancel: ";
+	cout << "\nAre you sure you want to remove this customer?\nInsert Y for YES or anything else to cancel: ";
 	cin >> c;
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');

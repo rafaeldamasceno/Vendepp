@@ -11,13 +11,13 @@ store(store)
 
 MenuResult AddTransaction::handle()
 {
+	cout << endl;
 	// pedir id
 	Customer * customer = readCustomerId(store);
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');
 	// pedir data
-	//OneDateProcessor oneDateProcessor("Insert date (DD/MM/YYYY): ", "ERROR: Date not valid.");
-	Date date(1, 1, 1);
+	Date date = readDate("\nInsert the transaction date (DD/MM/YYYY): ");
 	// criar a transação
 
 	Transaction transaction(*customer, date);

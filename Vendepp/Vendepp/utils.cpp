@@ -8,7 +8,8 @@ using namespace std;
 void pause()
 {
 	cout << "Press enter to continue . . . ";
-	cin.get();
+	string s;
+	getline(cin, s);
 }
 
 void header()
