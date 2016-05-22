@@ -71,3 +71,4 @@ protected:
 
 Customer * readCustomerId(Store & store);
 Product * readProductName(Store & store);
+string readFileName(const string & prompt);

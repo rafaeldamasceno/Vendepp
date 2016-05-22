@@ -34,6 +34,7 @@ public:
 	Product * fetchProduct(const unsigned int & pos);
 	Customer * fetchCustomer(const unsigned int & id);
 
+	const map <Product *, unsigned int> & getProductsPointerMap();
 	const map <unsigned int, Product *> & getProductsIdMap();
 	const map <unsigned int, Customer *> & getCustomersIdMap();
 	const map <string, Customer *> & getCustomersNameMap();
@@ -43,6 +44,8 @@ public:
 	void askFileNames();
 	void askFileNames(const string & a, const string & b, const string & c);
 
+	unsigned int getAvailableId() const;
+
 private:
 	unsigned int inactiveCustomers = 0;
 	list <Customer> customers;
@@ -51,6 +54,7 @@ private:
 	map <unsigned int, Customer *> customersIdPointer;
 	map <string, Customer *> customersNamePointer;
 	map <unsigned int, Product *> productsPositionPointer;
+	map <Product *, unsigned int> productsPointerPosition;
 	map <string, Product *> productsNamePointer;
 	string fileNames[3]; // 0 is customers, 1 is products and 2 is transactions
 };

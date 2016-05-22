@@ -66,20 +66,26 @@ MenuResult PrintProducts::handle()
 }
 
 PrintCustomers::PrintCustomers(Store & store, SortBy sortBy) :
-	store(store), sortBy(sortBy)
+	store(store), sortBy(sortBy), showBy(ALL)
 {
 	
 }
 
 PrintCustomers::PrintCustomers(Store & store, Customer * customer) :
-	store(store), customer(customer)
+	store(store), customer(customer), showBy(CUSTOMER)
+{
+
+}
+
+PrintCustomers::PrintCustomers(Store & store, ShowBy showBy) :
+	store(store), customer(customer), showBy(showBy)
 {
 
 }
 
 MenuResult PrintCustomers::handle()
 {
-	if (customer != nullptr)
+	if (showBy == CUSTOMER)
 	{
 			cout << "ID: ";
 			cout << (*customer).getId() << endl;
@@ -165,7 +171,7 @@ MenuResult PrintCustomers::handle()
 
 			count++;
 
-			if (count >= 10 || count >= customers.size())
+			if (showBy == BOTTOM10 && (count >= 10 || count >= customers.size()))
 			{
 				break;
 			}

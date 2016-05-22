@@ -9,3 +9,12 @@ public:
 private:
 	Store & store;
 };
+
+class CustomerAdvertisement : public Menu {
+public:
+	CustomerAdvertisement(Store & store);
+	virtual MenuResult handle();
+
+private:
+	Store & store;
+};

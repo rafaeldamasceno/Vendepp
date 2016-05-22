@@ -3,6 +3,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
+
+#include "Menu.h"
 
 Store::Store()
 {
@@ -78,7 +81,8 @@ void Store::readProducts()
 		productsFile >> product;
 		productsFile.ignore(INT64_MAX, '\n');
 		products.push_back(product);
-		productsNamePointer[product.getName()] = productsPositionPointer[i] = &(*products.rbegin());
+		productsNamePointer[product.getName()] = productsPositionPointer[(unsigned int)i] = &(*products.rbegin());
+		productsPointerPosition[&(*products.rbegin())] = (unsigned int)i;
 	}
 
 }
@@ -172,12 +176,9 @@ bool Store::existsProduct(const string & name) const
 
 void Store::askFileNames()
 {
-	cout << "Customers file: ";
-	cin >> fileNames[0];
-	cout << "Products file: ";
-	cin >> fileNames[1];
-	cout << "Transactions file: ";
-	cin >> fileNames[2];
+	fileNames[0] = readFileName("Insert the customers' file: ");
+	fileNames[1] = readFileName("Insert the products' file: ");
+	fileNames[2] = readFileName("Insert the transactions' file: ");
 }
 
 void Store::askFileNames(const string & a, const string & b, const string & c)
@@ -185,6 +186,12 @@ void Store::askFileNames(const string & a, const string & b, const string & c)
 	fileNames[0] = a;
 	fileNames[1] = b;
 	fileNames[2] = c;
+}
+
+unsigned int Store::getAvailableId() const
+{
+	auto max = max_element(customers.begin(), customers.end(), [](const Customer & a, const Customer & b) { return a.getId() < b.getId(); });
+	return (*max).getId() + 1;
 }
 
 Product * Store::fetchProduct(const string & name)
@@ -195,6 +202,11 @@ Product * Store::fetchProduct(const string & name)
 Customer * Store::fetchCustomer(const unsigned int & id)
 {
 	return customersIdPointer.at(id);
+}
+
+const map<Product*, unsigned int>& Store::getProductsPointerMap()
+{
+	return productsPointerPosition;
 }
 
 const map <unsigned int, Product*> & Store::getProductsIdMap()

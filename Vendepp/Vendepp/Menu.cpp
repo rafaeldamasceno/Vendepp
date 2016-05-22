@@ -1,6 +1,7 @@
 #include "Menu.h"
 
 #include <iostream>
+#include <fstream>
 
 ExitHandler Menu::exitHandler;
 
@@ -42,7 +43,6 @@ MenuResult Menu::handle()
 		{
 			break;
 		}
-
 	}
 
 	return CONTINUE;
@@ -60,7 +60,7 @@ void Menu::invalidOption(string opt)
 
 void Menu::printMenu() const
 {
-
+	cout << endl;
 	for (size_t i = 1; i < entries.size(); i++)
 	{
 		cout << i << ". " << entries[i].first << endl;
@@ -174,4 +174,21 @@ Product * readProductName(Store & store)
 			existsProduct = false;
 		}
 	}
+}
+
+string readFileName(const string & prompt)
+{
+	while (true)
+	{
+		cout << prompt;
+		string fileName;
+		getline(cin, fileName);
+		fstream test(fileName);
+		if (test.is_open())
+		{
+			return fileName;
+		}
+		cout << "ERROR: File doesn't exist." << endl;
+	}
+
 }

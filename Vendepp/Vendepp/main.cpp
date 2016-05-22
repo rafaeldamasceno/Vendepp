@@ -7,12 +7,17 @@
 #include "ViewInformation.h"
 #include "Advertisement.h"
 #include "Store.h"
+#include "utils.h"
 
 int main()
 {
+	header();
+	cout << endl;
+
 	Store store;
 
 	store.askFileNames("customers.txt", "products.txt", "transactions.txt");
+	//store.askFileNames();
 	store.load();
 
 	Menu menu;
@@ -20,15 +25,14 @@ int main()
 	ManageCustomers manageCustomers(store);
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
-	PrintCustomers a(store, COST);
+	CustomerAdvertisement customerAdvertisement(store);
 
-	
 	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
-	menu.entries.push_back(MenuEntry("Advertisement", a));
+	menu.entries.push_back(MenuEntry("Advertisement", customerAdvertisement));
 
 	menu.handle();
 
