@@ -71,9 +71,26 @@ PrintCustomers::PrintCustomers(Store & store, SortBy sortBy) :
 	
 }
 
+PrintCustomers::PrintCustomers(Store & store, Customer * customer) :
+	store(store), customer(customer)
+{
+
+}
+
 MenuResult PrintCustomers::handle()
 {
-	if (sortBy == ID)
+	if (customer != nullptr)
+	{
+			cout << "ID: ";
+			cout << (*customer).getId() << endl;
+			cout << "Name: ";
+			cout << (*customer).getName() << endl;
+			cout << "Join date: ";
+			cout << (*customer).getJoinDate() << endl;
+			cout << "Total cost: ";
+			cout << fixed << setprecision(2) << (*customer).getTotalCost() << endl << endl;
+	}
+	else if (sortBy == ID)
 	{
 		for (auto const & i : store.getCustomersIdMap())
 		{
@@ -126,41 +143,123 @@ MenuResult PrintCustomers::handle()
 			}
 		}
 	}
+	else if (sortBy == COST)
+	{
+		list <Customer> customers = store.getAllCustomers();
+		customers.sort([](const Customer & a, const Customer & b) { return a.getTotalCost() < b.getTotalCost(); });
+		size_t count = 0;
+
+		for (const Customer & i : customers)
+		{
+			if (i.getActiveStatus())
+			{
+				cout << "ID: ";
+				cout << i.getId() << endl;
+				cout << "Name: ";
+				cout << i.getName() << endl;
+				cout << "Join date: ";
+				cout << i.getJoinDate() << endl;
+				cout << "Total cost: ";
+				cout << fixed << setprecision(2) << i.getTotalCost() << endl << endl;
+			}
+
+			count++;
+
+			if (count >= 10 || count >= customers.size())
+			{
+				break;
+			}
+		}
+	}
 
 	pause();
 	return CONTINUE;
 }
 
 PrintTransactions::PrintTransactions(Store & store, SortBy sortBy) :
-	store(store), sortBy(sortBy)
+	store(store), showBy(ALL), sortBy(sortBy)
+{
+
+}
+
+PrintTransactions::PrintTransactions(Store & store, Customer * customer) :
+	store(store), customer(customer), showBy(CUSTOMER)
+{
+
+}
+
+PrintTransactions::PrintTransactions(Store & store, const Date & date) :
+	store(store), date1(date), showBy(DAY)
+{
+
+}
+
+PrintTransactions::PrintTransactions(Store & store, const Date & date1, const Date & date2) :
+	store(store), date1(date1), date2(date2), showBy(PERIOD)
 {
 
 }
 
 MenuResult PrintTransactions::handle()
 {
+	list <Transaction> transactions;
+	if (showBy == CUSTOMER)
+	{
+		for (const Transaction & i : store.getAllTransactions())
+		{
+			if (&(i.getCustomer()) == customer)
+			{
+				transactions.push_back(i);
+			}
+		}
+	}
+	else if (showBy == DAY)
+	{
+		for (const Transaction & i : store.getAllTransactions())
+		{
+			if (i.getDate() == date1)
+			{
+				transactions.push_back(i);
+			}
+		}
+	}
+	else if (showBy == PERIOD)
+	{
+		for (const Transaction & i : store.getAllTransactions())
+		{
+			if (i.getDate() >= date1 && i.getDate() <= date2)
+			{
+				transactions.push_back(i);
+			}
+		}
+	}
+	else if (showBy == ALL)
+	{
+		transactions = store.getAllTransactions();
+	}
+
 	if (sortBy == DATE)
 	{
-		list <Transaction> transactions = store.getAllTransactions();
 		transactions.sort([](const Transaction & a, const Transaction & b) { return a.getDate() < b.getDate(); });
-		for (const Transaction & i : transactions)
-		{
-			cout << "Customer ID: ";
-			cout << i.getCustomer().getId() << endl;
-			cout << "Transaction date: ";
-			cout << i.getDate() << endl;
-			cout << "Products: ";
-			for (const Product * j : i.products)
-			{
-				cout << (*j).getName();
+	}
 
-				if (j != *(i.products.rbegin()))
-				{
-					cout << ", ";
-				}
+	for (const Transaction & i : transactions)
+	{
+		cout << "Customer ID: ";
+		cout << i.getCustomer().getId() << endl;
+		cout << "Transaction date: ";
+		cout << i.getDate() << endl;
+		cout << "Products: ";
+		for (const Product * j : i.products)
+		{
+			cout << (*j).getName();
+
+			if (j != *(i.products.rbegin()))
+			{
+				cout << ", ";
 			}
-			cout << endl << endl;
 		}
+		cout << endl << endl;
 	}
 
 	pause();

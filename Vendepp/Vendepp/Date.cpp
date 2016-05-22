@@ -193,6 +193,11 @@ bool Date::operator > (const Date &date) const
 	return false;
 }
 
+bool Date::operator==(const Date & date) const
+{
+	return this->day == date.day && this->month == date.month && this->year == date.year;
+}
+
 bool Date::between(const Date &min, const Date &max)
 {
 	if (*this >= min && *this <= max)

@@ -8,7 +8,7 @@ class AddTransaction : public Menu {
 public:
 	AddTransaction(Store & store);
 
-	MenuResult handle();
+	virtual MenuResult handle();
 private:
 	Store & store;
 };

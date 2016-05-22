@@ -18,9 +18,9 @@ void Store::load()
 
 void Store::save()
 {
-	//writeCustomers();
+	writeCustomers();
 	//writeProducts();
-	//writeTransactions();
+	writeTransactions();
 }
 
 void Store::writeTransactions()
@@ -145,6 +145,7 @@ void Store::addCustomer(const Customer & c)
 	{
 		inactiveCustomers++;
 	}
+	writeCustomers();
 }
 
 bool Store::existsCustomer(const unsigned int & id) const

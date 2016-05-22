@@ -11,25 +11,24 @@
 int main()
 {
 	Store store;
+
 	store.askFileNames("customers.txt", "products.txt", "transactions.txt");
 	store.load();
+
 	Menu menu;
 	AddTransaction addTransaction(store);
 	ManageCustomers manageCustomers(store);
 	ViewInformation viewInformation(store);
 	Advertisement advertisement(store);
-	PrintProducts viewProducts(store);
-	PrintTransactions printTransactions(store, DATE);
+
 	
-	/*menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
+	menu.entries.push_back(MenuEntry("Exit", Menu::exitHandler));
 	menu.entries.push_back(MenuEntry("Add transaction", addTransaction));
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
 
-	menu.handle();*/
-	printTransactions.handle();
-
+	menu.handle();
 
 	return 0;
 }

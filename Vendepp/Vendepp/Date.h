@@ -24,6 +24,7 @@ public:
 	bool operator >= (const Date &date) const; // checks if a date is after or the same as another date, returns false if not
 	bool operator < (const Date &date) const;
 	bool operator > (const Date &date) const;
+	bool operator == (const Date &date) const;
 
 	bool between(const Date &min, const Date &max); // checks if a date is between a certain interval (extremes included), returns false if not
 

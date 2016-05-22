@@ -22,10 +22,11 @@ public:
 	void readTransactions();
 
 	void writeCustomers();
-	void writeProducts();
+	//void writeProducts();
 	void writeTransactions();
 
 	void addCustomer(const Customer & c);
+	void addTransaction(const Transaction & t);
 
 	bool existsCustomer(const unsigned int & id) const;
 	bool existsProduct(const string & name) const;
