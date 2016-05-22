@@ -10,7 +10,7 @@ Date::Date(const unsigned int & day, const unsigned int & month, const unsigned 
 
 Date::Date()
 {
-
+		
 }
 
 Date::Date(string & input)

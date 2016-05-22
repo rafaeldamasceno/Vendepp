@@ -47,8 +47,8 @@ public:
 
 class OneDateProcessor : public MenuHandler {
 public:
-	OneDateProcessor(const string & prompt, const string & error);
-	Date readDate(const string & prompt, const string & error);
+	OneDateProcessor(string prompt, string error);
+	Date readDate(string prompt, string error);
 	virtual MenuResult handle();
 
 protected:
@@ -60,7 +60,7 @@ protected:
 
 class TwoDateProcessor : public OneDateProcessor {
 public:
-	TwoDateProcessor(const string & prompt1, const string & prompt2, const string & error);
+	TwoDateProcessor(string prompt1, string prompt2, string error);
 
 protected:
 	virtual MenuResult handle(Date date1, Date date2) = 0;
@@ -68,6 +68,8 @@ protected:
 
 	string prompt2;
 };
+
+Date readDate(string prompt);
 
 Customer * readCustomerId(Store & store);
 Product * readProductName(Store & store);

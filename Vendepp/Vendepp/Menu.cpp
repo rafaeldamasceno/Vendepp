@@ -68,13 +68,13 @@ void Menu::printMenu() const
 	cout << endl << 0 << ". " << entries[0].first << endl;
 }
 
-OneDateProcessor::OneDateProcessor(const string & prompt, const string & error) :
+OneDateProcessor::OneDateProcessor(string prompt, string error) :
 	prompt1(prompt), error(error)
 {
 
 }
 
-Date OneDateProcessor::readDate(const string & prompt, const string & error)
+Date OneDateProcessor::readDate(string prompt, string error)
 {
 	while (true)
 	{
@@ -99,7 +99,7 @@ MenuResult OneDateProcessor::handle()
 	return handle(date);
 }
 
-TwoDateProcessor::TwoDateProcessor(const string & prompt1, const string & prompt2, const string & error) :
+TwoDateProcessor::TwoDateProcessor(string prompt1, string prompt2, string error) :
 	OneDateProcessor(prompt1, error), prompt2(prompt2)
 {
 
@@ -110,6 +110,23 @@ MenuResult TwoDateProcessor::handle(Date date1) {
 	Date date2 = readDate(prompt2, error);
 
 	return handle(date1, date2);
+}
+
+Date readDate(string prompt)
+{
+	while (true)
+	{
+		Date date;
+		cout << prompt;
+		cin >> date;
+		cin.clear();
+		cin.ignore(INT64_MAX, '\n');
+		if (date.valid())
+		{
+			return date;
+		}
+		cout << "ERROR: Invalid date." << endl;
+	}
 }
 
 Customer * readCustomerId(Store & store)

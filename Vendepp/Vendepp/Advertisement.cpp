@@ -7,13 +7,11 @@
 #include "utils.h"
 
 Advertisement::Advertisement(Store & store) :
-	store(store)
+	customerAdvertisement(store)/*, bottom10Advertisement(store)*/
 {
-	CustomerAdvertisement customerAdvertisement(store);
-
 	entries.push_back(MenuEntry("Back", Menu::exitHandler));
 	entries.push_back(MenuEntry("Advertise to customer", customerAdvertisement));
-	entries.push_back(MenuEntry("Bottom10 campaign", Menu::exitHandler));
+	//entries.push_back(MenuEntry("Bottom10 campaign", bottom10Advertisement));
 }
 
 CustomerAdvertisement::CustomerAdvertisement(Store & store) :
@@ -25,6 +23,8 @@ CustomerAdvertisement::CustomerAdvertisement(Store & store) :
 MenuResult CustomerAdvertisement::handle()
 {
 	Customer * customer = readCustomerId(store);
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
 	vector <vector <bool>> hasBoughtProduct;
 
 	hasBoughtProduct.resize(store.getAllCustomers().size(), vector<bool>(store.getProductsIdMap().size(), false));
@@ -125,37 +125,65 @@ MenuResult CustomerAdvertisement::handle()
 	return CONTINUE;
 }
 
-Bottom10Advertisement::Bottom10Advertisement(Store & store) :
-	store(store)
-{
-
-}
-
-MenuResult Bottom10Advertisement::handle()
-{
-	vector <Customer> bottom10;
-	vector <Product *> bottom10CommonProducts;
-	vector <vector <bool>> productsBougthByBottom10;
-	for (const Customer & i : store.getAllCustomers())
-	{
-		bottom10.push_back(i);
-	}
-	bottom10.sort([](const Customer & a, const Customer & b) { return a.getTotalCost() < b.getTotalCost(); });
-	if (bottom10.size() > 10)
-	{
-		bottom10.resize(10);
-	}
-	productsBougthByBottom10.resize(bottom10.size(), vector<bool>(store.getProductsIdMap().size(), false));
-
-	for (const Transaction &i : store.getAllTransactions())
-	{
-		for (const Customer & k : bottom10)
-		{
-			if (i.getCustomer().getId() == k.getId())
-			{
-
-			}
-		}
-	}
-	return CONTINUE;
-}
+//Bottom10Advertisement::Bottom10Advertisement(Store & store) :
+//	store(store)
+//{
+//
+//}
+//
+//MenuResult Bottom10Advertisement::handle()
+//{
+//	vector <Customer> bottom10;
+//	vector <Product *> bottom10CommonProducts;
+//
+//	for (const Customer & i : store.getAllCustomers())
+//	{
+//		bottom10.push_back(i);
+//	}
+//	sort(bottom10.begin(), bottom10.end(), [](const Customer & a, const Customer & b) { return a.getTotalCost() < b.getTotalCost(); });
+//	if (bottom10.size() > 10)
+//	{
+//		bottom10.resize(10);
+//	}
+//
+//	vector <vector <bool>> hasBoughtProduct;
+//
+//	hasBoughtProduct.resize(store.getAllCustomers().size(), vector<bool>(store.getProductsIdMap().size(), false));
+//
+//	vector <vector <unsigned int>> productsBought;
+//
+//	productsBought.resize(hasBoughtProduct.size());
+//
+//	map <unsigned int, unsigned int> idToLine;
+//
+//	auto pointerToPosition = store.getProductsPointerMap();
+//
+//	unsigned int line = 0;
+//
+//	for (const Customer &i : store.getAllCustomers())
+//	{
+//		idToLine[i.getId()] = line;
+//		line++;
+//	}
+//
+//	for (const Transaction &i : store.getAllTransactions())
+//	{
+//		unsigned int customerLine = idToLine[i.getCustomer().getId()];
+//
+//		for (Product * j : i.products)
+//		{
+//			hasBoughtProduct[customerLine][pointerToPosition[j]] = true;
+//
+//			auto result = find(productsBought[customerLine].begin(), productsBought[customerLine].end(), pointerToPosition[j]);
+//
+//			if (result == productsBought[customerLine].end())
+//			{
+//				productsBought[customerLine].push_back(pointerToPosition[j]);
+//			}
+//		}
+//	}
+//
+//	vector <unsigned int> productFrequency;
+//
+//	return CONTINUE;
+//}

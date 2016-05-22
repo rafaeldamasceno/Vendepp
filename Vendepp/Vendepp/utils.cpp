@@ -7,8 +7,6 @@ using namespace std;
 
 void pause()
 {
-	cin.clear();
-	cin.ignore(INT64_MAX, '\n');
 	cout << "Press enter to continue . . . ";
 	cin.get();
 }

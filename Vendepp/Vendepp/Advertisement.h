@@ -2,14 +2,6 @@
 
 #include "Menu.h"
 
-class Advertisement : public Menu {
-public:
-	Advertisement(Store & store);
-
-private:
-	Store & store;
-};
-
 class CustomerAdvertisement : public Menu {
 public:
 	CustomerAdvertisement(Store & store);
@@ -19,12 +11,21 @@ private:
 	Store & store;
 };
 
-class Bottom10Advertisement : public Menu {
+//class Bottom10Advertisement : public Menu {
+//public:
+//	Bottom10Advertisement(Store & store);
+//	virtual MenuResult handle();
+//
+//private:
+//	Store & store;
+//
+//};
+
+class Advertisement : public Menu {
 public:
-	Bottom10Advertisement(Store & store);
-	virtual MenuResult handle();
+	Advertisement(Store & store);
 
 private:
-	Store & store;
-
+	CustomerAdvertisement customerAdvertisement;
+	//Bottom10Advertisement bottom10Advertisement;
 };

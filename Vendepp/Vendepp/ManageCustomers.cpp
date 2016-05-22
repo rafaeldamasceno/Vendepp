@@ -6,24 +6,6 @@
 
 #include "utils.h"
 
-EditCustomer::EditCustomer(Store & store) :
-	store(store)
-{
-	entries.push_back(MenuEntry("Back", exitHandler));
-	entries.push_back(MenuEntry("Edit name", exitHandler));
-}
-
-ManageCustomers::ManageCustomers(Store & store) :
-	store(store)
-{
-	EditCustomer editCustomer(store);
-
-	entries.push_back(MenuEntry("Back", exitHandler));
-	entries.push_back(MenuEntry("Add customer", exitHandler));
-	entries.push_back(MenuEntry("Edit customer", editCustomer));
-	entries.push_back(MenuEntry("Remove customer", exitHandler));
-}
-
 AddCustomer::AddCustomer(Store & store) :
 	store(store)
 {
@@ -55,30 +37,6 @@ MenuResult AddCustomer::handle()
 	return CONTINUE;
 }
 
-RemoveCustomer::RemoveCustomer(Store & store) :
-	store(store)
-{
-}
-
-MenuResult RemoveCustomer::handle()
-{
-	Customer* customer = readCustomerId(store);
-	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
-	char c;
-	cout << "\n\nAre you sure you want to remove this customer?\nInsert Y for YES or anything else to cancel: ";
-	cin >> c;
-	cin.clear();
-	cin.ignore(INT64_MAX, '\n');
-	c = tolower(c);
-	if (c == 'y')
-	{
-		store.deleteCustomer(customer);
-		cout << "The customer has been removed.\n";
-	}
-	pause();
-	return CONTINUE;
-}
-
 EditCustomerName::EditCustomerName(Store & store) :
 	store(store)
 {
@@ -98,4 +56,46 @@ MenuResult EditCustomerName::handle()
 	cout << "The customer's name has been changed to: " << name << ".\n";
 	pause();
 	return CONTINUE;
+}
+
+EditCustomer::EditCustomer(Store & store) :
+	editCustomerName(store)
+{
+	entries.push_back(MenuEntry("Back", exitHandler));
+	entries.push_back(MenuEntry("Edit name", editCustomerName));
+}
+
+RemoveCustomer::RemoveCustomer(Store & store) :
+	store(store)
+{
+}
+
+MenuResult RemoveCustomer::handle()
+{
+	Customer* customer = readCustomerId(store);
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
+	char c;
+	cout << "\n\nAre you sure you want to remove this customer?\nInsert Y for YES or anything else to cancel: ";
+	cin >> c;
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	c = tolower(c);
+	if (c == 'y')
+	{
+		store.deleteCustomer(customer);
+		cout << "The customer has been removed.\n";
+	}
+	pause();
+	return CONTINUE;
+}
+
+ManageCustomers::ManageCustomers(Store & store) :
+	addCustomer(store), editCustomer(store), removeCustomer(store)
+{
+	entries.push_back(MenuEntry("Back", exitHandler));
+	entries.push_back(MenuEntry("Add customer", addCustomer));
+	entries.push_back(MenuEntry("Edit customer", editCustomer));
+	entries.push_back(MenuEntry("Remove customer", removeCustomer));
 }

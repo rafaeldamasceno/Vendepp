@@ -33,7 +33,6 @@ int main()
 	menu.entries.push_back(MenuEntry("Manage customers", manageCustomers));
 	menu.entries.push_back(MenuEntry("View information", viewInformation));
 	menu.entries.push_back(MenuEntry("Advertisement", advertisement));
-	menu.entries.push_back(MenuEntry("Advertisement", addCustomer));
 
 	menu.handle();
 

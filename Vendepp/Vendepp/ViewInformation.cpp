@@ -5,43 +5,38 @@
 #include <iomanip>
 
 ViewAllCustomers::ViewAllCustomers(Store & store) :
-	store(store)
+	viewAllCustomersById(store), viewAllCustomersByName(store)
 {
 	entries.push_back(MenuEntry("Back", exitHandler));
-	entries.push_back(MenuEntry("Sort by ID", exitHandler));
-	entries.push_back(MenuEntry("Sort by Name", exitHandler));
+	entries.push_back(MenuEntry("Sort by ID", viewAllCustomersById));
+	entries.push_back(MenuEntry("Sort by Name", viewAllCustomersByName));
 }
 
 ViewCustomers::ViewCustomers(Store & store) :
-	store(store)
+	viewAllCustomers(store), viewSingleCustomer(store), viewBottom10Customers(store)
 {
-	ViewAllCustomers viewAllCustomers(store);
-
 	entries.push_back(MenuEntry("Back", exitHandler));
-	entries.push_back(MenuEntry("View single customer", exitHandler));
+	entries.push_back(MenuEntry("View single customer", viewSingleCustomer));
 	entries.push_back(MenuEntry("View all customers", viewAllCustomers));
-	entries.push_back(MenuEntry("View Bottom10", exitHandler));
+	entries.push_back(MenuEntry("View Bottom10 customers", viewBottom10Customers));
 }
 
 ViewTransactions::ViewTransactions(Store & store) :
-	store(store)
+	viewCustomerTransactions(store), viewDayTransactions(store), viewPeriodTransactions(store), viewAllTransactions(store)
 {
 	entries.push_back(MenuEntry("Back", exitHandler));
-	entries.push_back(MenuEntry("View customer transactions", exitHandler));
-	entries.push_back(MenuEntry("View day transactions", exitHandler));
-	entries.push_back(MenuEntry("View period transactions", exitHandler));
-	entries.push_back(MenuEntry("View all transactions", exitHandler));
+	entries.push_back(MenuEntry("View customer transactions", viewCustomerTransactions));
+	entries.push_back(MenuEntry("View day transactions", viewDayTransactions));
+	entries.push_back(MenuEntry("View period transactions", viewPeriodTransactions));
+	entries.push_back(MenuEntry("View all transactions", viewAllTransactions));
 }
 
 ViewInformation::ViewInformation(Store & store) :
-	store(store)
+	viewCustomers(store), printProducts(store), viewTransactions(store)
 {
-	ViewCustomers viewCustomers(store);
-	ViewTransactions viewTransactions(store);
-
 	entries.push_back(MenuEntry("Back", exitHandler));
 	entries.push_back(MenuEntry("View customers", viewCustomers));
-	entries.push_back(MenuEntry("View products", exitHandler));
+	entries.push_back(MenuEntry("View products", printProducts));
 	entries.push_back(MenuEntry("View transactions", viewTransactions));
 }
 
@@ -78,7 +73,7 @@ PrintCustomers::PrintCustomers(Store & store, Customer * customer) :
 }
 
 PrintCustomers::PrintCustomers(Store & store, ShowBy showBy) :
-	store(store), customer(customer), showBy(showBy)
+	store(store), showBy(showBy), sortBy(COST)
 {
 
 }
@@ -269,5 +264,116 @@ MenuResult PrintTransactions::handle()
 	}
 
 	pause();
+	return CONTINUE;
+}
+
+ViewSingleCustomer::ViewSingleCustomer(Store & store) :
+	store(store)
+{
+
+}
+
+MenuResult ViewSingleCustomer::handle()
+{
+	Customer * customer = readCustomerId(store);
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	PrintCustomers printSingleCustomer(store, customer);
+	printSingleCustomer.handle();
+	return CONTINUE;
+}
+
+ViewAllCustomersById::ViewAllCustomersById(Store & store) :
+	store(store)
+{
+
+}
+
+MenuResult ViewAllCustomersById::handle()
+{
+	PrintCustomers printAllCustomersById(store, ID);
+	printAllCustomersById.handle();
+	return CONTINUE;
+}
+
+ViewAllCustomersByName::ViewAllCustomersByName(Store & store) :
+	store(store)
+{
+}
+
+MenuResult ViewAllCustomersByName::handle()
+{
+	PrintCustomers printAllCustomersByName(store, NAME);
+	printAllCustomersByName.handle();
+	return CONTINUE;
+}
+
+ViewBottom10Customers::ViewBottom10Customers(Store & store) :
+	printBottom10Customers(store, BOTTOM10)
+{
+}
+
+MenuResult ViewBottom10Customers::handle()
+{
+	printBottom10Customers.handle();
+	return CONTINUE;
+}
+
+ViewCustomerTransactions::ViewCustomerTransactions(Store & store):
+	store(store)
+{
+}
+
+MenuResult ViewCustomerTransactions::handle()
+{
+	Customer * customer = readCustomerId(store);
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	PrintTransactions printCustomerTransaction(store, customer);
+	printCustomerTransaction.handle();
+	return CONTINUE;
+}
+
+ViewDayTransactions::ViewDayTransactions(Store & store) :
+	store(store)
+{
+}
+
+MenuResult ViewDayTransactions::handle()
+{
+	Date date = readDate("Insert date (DD/MM/YYYY): ");
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	PrintTransactions printDayTransactions(store, date);
+	printDayTransactions.handle();
+	return CONTINUE;
+}
+
+ViewPeriodTransactions::ViewPeriodTransactions(Store & store) :
+	store(store)
+{
+}
+
+MenuResult ViewPeriodTransactions::handle()
+{
+	Date min = readDate("Insert first date: ");
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	Date max = readDate("Insert last date: ");
+	cin.clear();
+	cin.ignore(INT64_MAX, '\n');
+	PrintTransactions printPeriodTransactions(store, min, max);
+	printPeriodTransactions.handle();
+	return CONTINUE;
+}
+
+ViewAllTransactions::ViewAllTransactions(Store & store):
+	printAllTransactions(store, DATE)
+{
+}
+
+MenuResult ViewAllTransactions::handle()
+{
+	printAllTransactions.handle();
 	return CONTINUE;
 }
