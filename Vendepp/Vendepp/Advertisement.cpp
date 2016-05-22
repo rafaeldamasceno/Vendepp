@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <vector>
 
 #include "utils.h"
 
@@ -121,5 +122,40 @@ MenuResult CustomerAdvertisement::handle()
 
 	pause();
 
+	return CONTINUE;
+}
+
+Bottom10Advertisement::Bottom10Advertisement(Store & store) :
+	store(store)
+{
+
+}
+
+MenuResult Bottom10Advertisement::handle()
+{
+	vector <Customer> bottom10;
+	vector <Product *> bottom10CommonProducts;
+	vector <vector <bool>> productsBougthByBottom10;
+	for (const Customer & i : store.getAllCustomers())
+	{
+		bottom10.push_back(i);
+	}
+	bottom10.sort([](const Customer & a, const Customer & b) { return a.getTotalCost() < b.getTotalCost(); });
+	if (bottom10.size() > 10)
+	{
+		bottom10.resize(10);
+	}
+	productsBougthByBottom10.resize(bottom10.size(), vector<bool>(store.getProductsIdMap().size(), false));
+
+	for (const Transaction &i : store.getAllTransactions())
+	{
+		for (const Customer & k : bottom10)
+		{
+			if (i.getCustomer().getId() == k.getId())
+			{
+
+			}
+		}
+	}
 	return CONTINUE;
 }

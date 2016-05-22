@@ -18,3 +18,13 @@ public:
 private:
 	Store & store;
 };
+
+class Bottom10Advertisement : public Menu {
+public:
+	Bottom10Advertisement(Store & store);
+	virtual MenuResult handle();
+
+private:
+	Store & store;
+
+};
