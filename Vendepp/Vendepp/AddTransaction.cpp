@@ -16,13 +16,14 @@ MenuResult AddTransaction::handle()
 	Customer * customer = readCustomerId(store);
 	cin.clear();
 	cin.ignore(INT64_MAX, '\n');
+
+	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
 	// pedir data
 	Date date = readDate("\nInsert the transaction date (DD/MM/YYYY): ");
 	// criar a transação
 
 	Transaction transaction(*customer, date);
 	// ler produtos
-	cout << "\nID: " << customer->getId() << "\nName: " << customer->getName() << "\nJoin date: " << customer->getJoinDate() << "\nAmount: " << fixed << setprecision(2) << customer->getTotalCost() << endl;
 	cout << "To stop inserting products, press enter.\n";
 	while (true)
 	{

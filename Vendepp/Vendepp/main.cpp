@@ -15,8 +15,8 @@ int main()
 
 	Store store;
 
-	store.askFileNames("customers.txt", "products.txt", "transactions.txt");
-	//store.askFileNames();
+	//store.askFileNames("customers.txt", "products.txt", "transactions.txt");
+	store.askFileNames();
 	store.load();
 
 	Menu menu;
