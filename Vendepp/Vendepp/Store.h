@@ -35,7 +35,7 @@ public:
 	Customer * fetchCustomer(const unsigned int & id);
 
 	const map <Product *, unsigned int> & getProductsPointerMap();
-	const map <unsigned int, Product *> & getProductsIdMap();
+	const map <unsigned int, Product *> & getProductsPositionMap();
 	const map <unsigned int, Customer *> & getCustomersIdMap();
 	const map <string, Customer *> & getCustomersNameMap();
 	const list <Customer> & getAllCustomers();

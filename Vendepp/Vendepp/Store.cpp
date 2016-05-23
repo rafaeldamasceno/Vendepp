@@ -161,6 +161,7 @@ void Store::addTransaction(const Transaction & t)
 		cost += i->getCost();
 	}
 	t.getCustomer().setTotalCost(t.getCustomer().getTotalCost() + cost);
+	writeCustomers();
 	writeTransactions();
 }
 
@@ -209,7 +210,7 @@ const map<Product*, unsigned int>& Store::getProductsPointerMap()
 	return productsPointerPosition;
 }
 
-const map <unsigned int, Product*> & Store::getProductsIdMap()
+const map <unsigned int, Product*> & Store::getProductsPositionMap()
 {
 	return productsPositionPointer;
 }

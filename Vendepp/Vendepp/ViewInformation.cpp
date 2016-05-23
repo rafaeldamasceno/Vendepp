@@ -48,7 +48,7 @@ PrintProducts::PrintProducts(Store & store) :
 
 MenuResult PrintProducts::handle()
 {
-	for (auto const & i : store.getProductsIdMap())
+	for (auto const & i : store.getProductsPositionMap())
 	{
 		cout << "Name: ";
 		cout << i.second->getName() << endl;

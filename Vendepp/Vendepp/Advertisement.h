@@ -11,15 +11,15 @@ private:
 	Store & store;
 };
 
-//class Bottom10Advertisement : public Menu {
-//public:
-//	Bottom10Advertisement(Store & store);
-//	virtual MenuResult handle();
-//
-//private:
-//	Store & store;
-//
-//};
+class Bottom10Advertisement : public Menu {
+public:
+	Bottom10Advertisement(Store & store);
+	virtual MenuResult handle();
+
+private:
+	Store & store;
+
+};
 
 class Advertisement : public Menu {
 public:
@@ -27,5 +27,5 @@ public:
 
 private:
 	CustomerAdvertisement customerAdvertisement;
-	//Bottom10Advertisement bottom10Advertisement;
+	Bottom10Advertisement bottom10Advertisement;
 };

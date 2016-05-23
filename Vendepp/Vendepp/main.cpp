@@ -12,7 +12,6 @@
 int main()
 {
 	header();
-	cout << endl;
 
 	Store store;
 
